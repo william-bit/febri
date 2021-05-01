@@ -8,6 +8,10 @@ use Illuminate\Http\Request;
 
 class ProductController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware(['auth']);
+    }
     public function index()
     {
         $product = Products::with(['category'])->latest()->paginate(100);
@@ -28,7 +32,7 @@ class ProductController extends Controller
                     'code' => 'code',
                     'description' => 'description',
                     'price' => 'Price',
-                    'category_id' => 'Category Id',
+                    'category.name' => 'Category',
                     'created_at' => 'Created At',
                     'updated_at' => 'Updated At',
                 ],
@@ -95,9 +99,8 @@ class ProductController extends Controller
             'name' => $request->name,
             'category_id' => $request->category_id,
             'description' => $request->description,
-            'photo' => $request->photo,
+            'photo' => $request->file('photo')->getClientOriginalName(),
             'price' => $request->price,
-            'photo' => $request->photo,
             'code' => $request->code
         ]);
         return redirect()->route('product');

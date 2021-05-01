@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
 use App\Models\Products;
 use Illuminate\Http\Request;
 
@@ -9,10 +10,27 @@ class HomeController extends Controller
 {
     public function index()
     {
-        $product = Products::latest()->paginate(100);
-        dd($product);
+        $products = Products::latest()->paginate(100);
+        $categories = Category::get();
+        $top = Products::take(5)->latest()->get();
         return view('welcome',[
-            'listProduct' => $product
+            'top' => $top,
+            'products' => $products,
+            'categories' => $categories
+        ]);
+    }
+    public function indexWithCategory(Request $request){
+        if($request->category != "all"){
+            $products = Products::where('category_id',$request->category)->latest()->paginate(100);
+        }else{
+            $products = Products::latest()->paginate(100);
+        }
+        $categories = Category::get();
+        $top = Products::take(5)->latest()->get();
+        return view('welcome',[
+            'top' => $top,
+            'products' => $products,
+            'categories' => $categories
         ]);
     }
 }

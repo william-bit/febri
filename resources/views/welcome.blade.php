@@ -8,27 +8,27 @@
             </div>
         </div>
         <div class="flex flex-row items-center justify-center flex-1 w-screen p-4 overflow-auto bg-white shadow-lg">
-            @for ($i = 0; $i < 5; $i++)
+            @foreach ($top as $product)
                 <div class="flex flex-col mx-2 shadow-lg">
-                    <a class="flex flex-col items-center flex-shrink-0 rounded-lg cursor-pointer hover:bg-gray-100">
+                    <a href="{{ route('home.detail',$product->id) }}" class="flex flex-col items-center flex-shrink-0 rounded-lg cursor-pointer hover:bg-gray-100">
                         <div class="p-2 border-t-2 border-l-2 border-r-2 rounded-t-lg">
-                            <img class="w-56 h-56" src="{{ asset('storage/images/polaris.png') }}" alt="" title="">
+                            <img class="w-56 h-56" src="{{ asset('storage/images/'.$product->photo) }}" alt="" title="">
                         </div>
                         <div class="flex justify-center flex-1 w-full pt-2 text-xl font-bold text-blue-900 border-l-2 border-r-2">
-                            <span> chococino {{ $i }} </span>
+                            <span> {{ $product->name }} </span>
                         </div>
                         <span class="w-full pb-2 text-sm font-semibold text-center text-blue-900 border-b-2 border-l-2 border-r-2 focus:outline-none">
-                            Rp.55.000,00
+                            {{ $product->price }}
                         </span>
                     </a>
-                    <button class="w-full p-2 text-xl font-bold text-blue-900 border-b-2 border-l-2 border-r-2 rounded-b-lg focus:outline-none hover:bg-gray-100">
+                    <button value="{{ $product->id }}" class="w-full p-2 text-xl font-bold text-blue-900 transition border-b-2 border-l-2 border-r-2 rounded-b-lg active:delay-150 active:bg-gray-300 checkout-button focus:outline-none hover:bg-gray-100">
                         Add To Cart
                     </button>
-                    <button class="w-full p-2 text-xl font-bold text-blue-900 border-b-2 border-l-2 border-r-2 rounded-b-lg focus:outline-none hover:bg-gray-100">
+                    <a href="{{ route('buy',$product->id) }}" class="w-full p-2 text-xl font-bold text-center text-blue-900 border-b-2 border-l-2 border-r-2 rounded-b-lg buynow-button focus:outline-none hover:bg-gray-100">
                          Buy Now
-                    </button>
+                    </a>
                 </div>
-            @endfor
+            @endforeach
         </div>
     </div>
     <div class="flex flex-row flex-1 mt-1 bg-white shadow-lg">
@@ -42,14 +42,16 @@
                 </svg>
             </div>
             <div class="flex-1 w-full px-16 pt-2 pb-12 mt-5 bg-white border rounded-lg shadow-lg">
-                <nav class="flex flex-col">
-                    <h2 class="my-3 text-lg font-bold">Category</h2>
-                    <a class="my-2 font-semibold whitespace-nowrap hover:text-blue-600" href="">Cool</a>
-                    <a class="my-2 font-semibold whitespace-nowrap hover:text-blue-600" href="">Funky</a>
-                    <a class="my-2 font-semibold whitespace-nowrap hover:text-blue-600" href="">Elegant</a>
-                    <a class="my-2 font-semibold whitespace-nowrap hover:text-blue-600" href="">Unique</a>
-                    <a class="my-2 font-semibold whitespace-nowrap hover:text-blue-600" href="">Adult Flavor</a>
-                </nav>
+                <form action="{{ route('home.category')}}" method="post">
+                    @csrf
+                    <nav class="flex flex-col">
+                        <h2 class="my-3 text-lg font-bold">Category</h2>
+                        <button type="submit" name="category" value="all" class="my-2 font-semibold text-left whitespace-nowrap hover:text-blue-600"">All</button>
+                        @foreach ($categories as $category)
+                            <button type="submit" name="category" value="{{$category->id}}" class="my-2 font-semibold text-left whitespace-nowrap hover:text-blue-600"">{{ $category->name }}</button>
+                        @endforeach
+                    </nav>
+                </form>
             </div>
         </div>
         <div class="flex-1 p-10">
@@ -63,27 +65,27 @@
             </div>
             <div class="mt-3">
                 <div class="flex flex-wrap items-center flex-1">
-                    @for ($i = 0; $i < 30; $i++)
+                    @foreach ($products as $product)
                         <div class="flex flex-col m-2 rounded-lg shadow-lg">
-                            <a class="flex flex-col items-center flex-shrink-0 bg-white cursor-pointer hover:bg-gray-200">
+                            <a href="{{ route('home.detail',$product->id) }}" class="flex flex-col items-center flex-shrink-0 bg-white cursor-pointer hover:bg-gray-200">
                                 <div class="p-2 border-t-2 border-l-2 border-r-2 rounded-t-lg">
-                                    <img class="w-44 h-44" src="{{ asset('storage/images/polaris.png') }}" alt="" title="">
+                                    <img class="w-44 h-44" src="{{ asset('storage/images/'.$product->photo) }}" alt="" title="">
                                 </div>
                                 <div class="flex justify-center flex-1 w-full pt-2 text-xl font-bold text-blue-900 border-l-2 border-r-2">
-                                    <span> chococino {{ $i }} </span>
+                                    <span> {{ $product->name }} </span>
                                 </div>
                                 <span class="w-full pb-2 text-sm font-semibold text-center text-blue-900 border-b-2 border-l-2 border-r-2 focus:outline-none">
-                                    Rp.55.000,00
+                                    {{ $product->price }}
                                 </span>
                             </a>
-                            <button class="w-full p-2 text-xl font-bold text-blue-900 border-b-2 border-l-2 border-r-2 focus:outline-none hover:bg-gray-100">
+                            <button value="{{ $product->id }}" class="w-full p-2 text-xl font-bold text-blue-900 transition border-b-2 border-l-2 border-r-2 active:delay-150 checkout-button focus:outline-none hover:bg-gray-100 active:bg-gray-300">
                                 Add To Cart
                             </button>
-                            <button class="w-full p-2 text-xl font-bold text-blue-900 border-b-2 border-l-2 border-r-2 rounded-b-lg focus:outline-none hover:bg-gray-100">
+                            <a href="{{ route('buy',$product->id) }}" class="w-full p-2 text-xl font-bold text-center text-blue-900 border-b-2 border-l-2 border-r-2 rounded-b-lg buynow-button focus:outline-none hover:bg-gray-100">
                                 Buy Now
-                            </button>
+                            </a>
                         </div>
-                    @endfor
+                    @endforeach
                 </div>
             </div>
         </div>

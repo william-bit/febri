@@ -28,7 +28,7 @@ class LoginController extends Controller
         if(Auth::attempt($credentials)){
             $request->session()->regenerate();
             if(auth()->user()->role_id === 1){
-                return redirect()->route('product');
+                return redirect()->route('dashboard');
             }else{
                 return redirect()->route('home');
             }

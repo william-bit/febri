@@ -25,7 +25,9 @@ use Illuminate\Support\Facades\Route;
 |
 */
 Route::get('/',[HomeController::class,'index'])->name('home');
+Route::post('/',[HomeController::class,'indexWithCategory'])->name('home.category');
 Route::get('/home',[HomeController::class,'index']);
+Route::get('/home/detail/{product}',[HomeController::class,'detail'])->name('home.detail');
 
 Route::get('/auth/login',[LoginController::class,'index'])->name('login');
 Route::post('/auth/login',[LoginController::class,'check']);
@@ -38,7 +40,7 @@ Route::prefix('/checkout')->group(function(){
     Route::delete('/{id}',[CheckoutController::class,'destroy']);
 });
 
-Route::get('/buy',[BuyNowController::class,'index'])->name('buy');
+Route::get('/buy/{product}',[BuyNowController::class,'index'])->name('buy');
 Route::prefix('/but')->group(function(){
     Route::post('/{id}',[BuyNowController::class,'store']);
 });
@@ -49,8 +51,8 @@ Route::get('/admin/transaction',[TransactionController::class,'index'])->name('t
 
 Route::get('/admin/category',[CategoryController::class,'index'])->name('category');
 Route::prefix('/admin/category')->group(function(){
-    Route::post('/{id}',[CategoryController::class,'store']);
-    Route::put('/{id}',[CategoryController::class,'update']);
+    Route::post('/',[CategoryController::class,'store']);
+    Route::put('/update/{id}',[CategoryController::class,'update'])->name('category.update');
     Route::delete('/{id}',[CategoryController::class,'destroy']);
 });
 
@@ -68,6 +70,7 @@ Route::prefix('/admin/product')->group(function(){
     Route::put('/update/{product}',[ProductController::class,'update'])->name('product.update');
     Route::get('/detail/{product}',[ProductController::class,'index'])->name('product.detail');
 });
+
 
 Route::get('/user',[UserController::class,'index'])->name('user');
 Route::prefix('/user')->group(function(){

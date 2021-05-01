@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Products;
 use Illuminate\Http\Request;
 
 class BuyNowController extends Controller
@@ -11,9 +12,11 @@ class BuyNowController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Products $product)
     {
-        //
+        return view('pages.Transaction.BuyNow',[
+            'product' => $product
+        ]);
     }
 
     /**

@@ -1,4 +1,4 @@
-@extends('layouts.app',['tilte'=>$title])
+@extends('admin.layouts.app',['tilte'=>$title])
 @section('content')
     <div class="flex-1 p-5 overflow-auto">
         <div class="mb-3 tracking-wide text-blue-900">

@@ -16,7 +16,7 @@
                     <a href="{{ route('dashboard') }}" class="w-full p-2 rounded-lg font-semibold {{ request()->is('admin') ? 'bg-gray-200 rounded-lg shadow-sm' : 'hover:bg-gray-200'}}">Dashboard</a>
                     @auth
                         <a href="{{ route('product') }}" class="w-full p-2 font-semibold rounded-lg {{ request()->is('admin/product') ? 'bg-gray-200 rounded-lg shadow-sm' : 'hover:bg-gray-200'}}">List Product</a>
-                        <a href="{{ route('category') }}" class="w-full p-2 font-semibold rounded-lg {{ request()->is('admin/jcategory') ? 'bg-gray-200 rounded-lg shadow-sm' : 'hover:bg-gray-200'}}">List Category</a>
+                        <a href="{{ route('category') }}" class="w-full p-2 font-semibold rounded-lg {{ request()->is('admin/category') ? 'bg-gray-200 rounded-lg shadow-sm' : 'hover:bg-gray-200'}}">List Category</a>
                         <a href="{{ route('member') }}" class="w-full p-2 font-semibold rounded-lg {{ request()->is('admin/member') ? 'bg-gray-200 rounded-lg shadow-sm' : 'hover:bg-gray-200'}}">List Member</a>
                         <a href="{{ route('transaction') }}" class="w-full p-2 font-semibold rounded-lg {{ request()->is('admin/transaction') ? 'bg-gray-200 rounded-lg shadow-sm' : 'hover:bg-gray-200'}}">Report Transaction</a>
                         <a href="{{ route('report') }}" class="w-full p-2 font-semibold rounded-lg {{ request()->is('admin/report') ? 'bg-gray-200 rounded-lg shadow-sm' : 'hover:bg-gray-200'}}">Report All</a>
