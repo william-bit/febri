@@ -13,7 +13,11 @@ class CheckoutController extends Controller
     }
     public function index(Request $request)
     {
-        $productCheckout = Products::whereIn('id',$request->session()->get('productCheckout'))->get();
+        if($request->session()->get('productCheckout')){
+            $productCheckout = Products::whereIn('id',$request->session()->get('productCheckout'))->get();
+        }else{
+            $productCheckout = [];
+        }
         return view('pages.Transaction.Checkout',[
             'products' => $productCheckout
         ]);

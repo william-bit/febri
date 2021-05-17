@@ -19,7 +19,6 @@
                         <a href="{{ route('category') }}" class="w-full p-2 font-semibold rounded-lg {{ request()->is('admin/category') ? 'bg-gray-200 rounded-lg shadow-sm' : 'hover:bg-gray-200'}}">List Category</a>
                         <a href="{{ route('member') }}" class="w-full p-2 font-semibold rounded-lg {{ request()->is('admin/member') ? 'bg-gray-200 rounded-lg shadow-sm' : 'hover:bg-gray-200'}}">List Member</a>
                         <a href="{{ route('transaction') }}" class="w-full p-2 font-semibold rounded-lg {{ request()->is('admin/transaction') ? 'bg-gray-200 rounded-lg shadow-sm' : 'hover:bg-gray-200'}}">Report Transaction</a>
-                        <a href="{{ route('report') }}" class="w-full p-2 font-semibold rounded-lg {{ request()->is('admin/report') ? 'bg-gray-200 rounded-lg shadow-sm' : 'hover:bg-gray-200'}}">Report All</a>
                     @endauth
                 </nav>
             </div>
@@ -31,6 +30,9 @@
                 </ul>
                 <ul class="flex px-3 space-x-3">
                     @if(auth()->user())
+                        <li>
+                            <a href="{{route('home')}}" class="font-bold text-gray-300 hover:text-gray-400 text-md">Go To Home</a>
+                        </li>
                         <li>
                             <a href="" class="font-bold text-md">{{ auth()->user()->name }}</a>
                         </li>

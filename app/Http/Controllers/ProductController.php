@@ -21,9 +21,8 @@ class ProductController extends Controller
                 'Dashboard' => route('dashboard'),
             ],
             'action' => 'product',
-            'delete' => 'product',
+            'delete' => 'product.destroy',
             'edit' => 'product.update',
-            'detail' => 'product.detail',
             'table' => [
                 'name' => 'product list',
                 'data' => $product,
@@ -92,21 +91,24 @@ class ProductController extends Controller
             'code' => 'required|unique:products,code',
             'category_id' => 'required|exists:categories,id',
             'description' => 'required',
-            'photo' => 'required',
+            'photo' => 'required|image|mimes:png,jpg',
             'price' => 'required'
         ]);
+        $productPhoto = $request->file('photo')->getClientOriginalName();
         Products::create([
             'name' => $request->name,
             'category_id' => $request->category_id,
             'description' => $request->description,
-            'photo' => $request->file('photo')->getClientOriginalName(),
+            'photo' => $productPhoto,
             'price' => $request->price,
             'code' => $request->code
         ]);
+        $request->photo->move(public_path('storage/images'), $productPhoto);
         return redirect()->route('product');
     }
-    public function destroy(Request $request)
+    public function destroy(Products $product)
     {
-       dd();
+        $product->delete();
+        return redirect()->route('product');
     }
 }

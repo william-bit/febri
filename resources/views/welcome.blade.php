@@ -18,7 +18,7 @@
                             <span> {{ $product->name }} </span>
                         </div>
                         <span class="w-full pb-2 text-sm font-semibold text-center text-blue-900 border-b-2 border-l-2 border-r-2 focus:outline-none">
-                            {{ $product->price }}
+                            Rp.{{ number_format($product->price,2)}}
                         </span>
                     </a>
                     <button value="{{ $product->id }}" class="w-full p-2 text-xl font-bold text-blue-900 transition border-b-2 border-l-2 border-r-2 rounded-b-lg active:delay-150 active:bg-gray-300 checkout-button focus:outline-none hover:bg-gray-100">
@@ -75,7 +75,7 @@
                                     <span> {{ $product->name }} </span>
                                 </div>
                                 <span class="w-full pb-2 text-sm font-semibold text-center text-blue-900 border-b-2 border-l-2 border-r-2 focus:outline-none">
-                                    {{ $product->price }}
+                                    Rp.{{ number_format($product->price,2)}}
                                 </span>
                             </a>
                             <button value="{{ $product->id }}" class="w-full p-2 text-xl font-bold text-blue-900 transition border-b-2 border-l-2 border-r-2 active:delay-150 checkout-button focus:outline-none hover:bg-gray-100 active:bg-gray-300">

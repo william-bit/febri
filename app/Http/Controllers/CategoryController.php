@@ -20,9 +20,8 @@ class CategoryController extends Controller
                 'Dashboard' => route('dashboard'),
             ],
             'action' => 'category',
-            'delete' => 'category',
+            'delete' => 'category.destroy',
             'edit' => 'category.update',
-            'detail' => 'category',
             'table' => [
                 'name' => 'Category list',
                 'data' => $categories,

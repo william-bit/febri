@@ -32,6 +32,7 @@
                     </div>
                 @enderror
                 <button class="px-3 py-2 mt-12 font-bold text-white bg-blue-700 border-2 focus:outline-none rounded-xl hover:bg-blue-800">Login</button>
+                <a href="{{route('register')}}" class="px-3 py-2 font-bold text-center text-gray-700 border-2 focus:outline-none rounded-xl hover:bg-gray-100">Register</a>
             </form>
         </div>
     </div>
