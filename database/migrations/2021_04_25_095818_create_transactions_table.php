@@ -15,7 +15,7 @@ class CreateTransactionsTable extends Migration
     {
         Schema::create('transactions', function (Blueprint $table) {
             $table->id();
-            $table->json('product');
+            $table->text('product');
             $table->string('user_id');
             $table->timestamps();
         });
