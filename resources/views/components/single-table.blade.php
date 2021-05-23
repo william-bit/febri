@@ -1,3 +1,4 @@
+@props(['table'])
 <div class="flex flex-1 mt-3 overflow-auto bg-white rounded shadow-lg">
     <div class="flex-1 p-8">
         <h3 class="text-2xl font-bold text-gray-800">Current Data</h3>

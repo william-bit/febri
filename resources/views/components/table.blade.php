@@ -1,3 +1,4 @@
+@props(['table'])
 <div class="flex flex-1 mt-3 overflow-auto bg-white rounded shadow-lg">
     <div class="flex-1 p-8">
         <h3 class="text-2xl font-bold text-gray-800">{{ $table['name'] }}</h3>
@@ -62,6 +63,8 @@
                                         @else
                                             <td class="p-2">{{ $datum->{$relationship}->{$column} }}</td>
                                         @endif
+                                    @elseif (!empty($table['valueConvert'][$name]))
+                                        <td class="p-2">{{ $table['valueConvert'][$name][array_search($datum->{$name},array_column($table['valueConvert'][$name],'id'))]['value'] }}</td>
                                     @else
                                         <td class="p-2">{{ $datum->{$name} }}</td>
                                     @endif

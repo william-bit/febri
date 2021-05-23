@@ -1,3 +1,4 @@
+@props(['name', 'label', 'placeholder', 'value', 'selection', 'message'])
 <div class="flex items-center justify-between">
     @csrf
     <label for="{{ $name }}" class="w-1/4 font-semibold tracking-wide text-gray-500">{{ $label }}</label>

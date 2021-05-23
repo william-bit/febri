@@ -1,3 +1,4 @@
+@props(['forms','action','submit'])
 <div class="flex flex-1 overflow-auto bg-white rounded shadow-lg">
     <div class="w-2/3 p-8">
         <h3 class="text-2xl font-bold text-gray-800">{{ $forms['name'] }}</h3>
