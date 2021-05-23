@@ -1901,7 +1901,7 @@ for (var i = 0; i < cartButton.length; i++) {
   var button = cartButton[i];
   button.addEventListener('click', function (event) {
     var checkoutId = event.target.value;
-    axios__WEBPACK_IMPORTED_MODULE_0___default().get('/sanctum/csrf-cookie').then(function (response) {
+    axios__WEBPACK_IMPORTED_MODULE_0___default().get('sanctum/csrf-cookie').then(function (response) {
       axios__WEBPACK_IMPORTED_MODULE_0___default().post('api/checkout', {
         id: checkoutId
       }).then(function (response) {
