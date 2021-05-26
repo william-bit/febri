@@ -28,8 +28,8 @@ use Illuminate\Support\Facades\Route;
 */
 Route::get('/',[HomeController::class,'index'])->name('home');
 Route::post('/',[HomeController::class,'indexWithCategory'])->name('home.category');
-Route::get('/home',[HomeController::class,'index']);
-Route::get('/home/detail/{product}',[HomeController::class,'detail'])->name('home.detail');
+Route::get('/home',[HomeController::class,'index'])->name('home.selection');
+Route::get('/home/{products}',[HomeController::class,'detail'])->name('home.detail');
 
 Route::get('/auth/login',[LoginController::class,'index'])->name('login');
 Route::post('/auth/login',[LoginController::class,'check']);
@@ -37,12 +37,12 @@ Route::get('/auth/register',[RegisterController::class,'index'])->name('register
 Route::post('/auth/register',[RegisterController::class,'store']);
 Route::post('/auth/logout',[LogOutController::class,'index'])->name('logout');
 
-Route::get('/checkout',[CheckoutController::class,'index'])->name('checkout');
+Route::get('/checkout',[CheckoutController::class,'index'])->name('checkout')->middleware(['auth']);
 Route::prefix('/checkout')->group(function(){
     Route::post('/',[PaymentController::class,'store']);
 });
 
-Route::get('/buy/{product}',[BuyNowController::class,'index'])->name('buy');
+Route::get('/buy/{product}',[BuyNowController::class,'index'])->name('buy')->middleware(['auth']);
 Route::prefix('/but')->group(function(){
     Route::post('/{id}',[BuyNowController::class,'store']);
 });

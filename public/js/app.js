@@ -1842,6 +1842,8 @@ module.exports = {
 
 __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
 
+__webpack_require__(/*! ./search */ "./resources/js/search.js");
+
 __webpack_require__(/*! ./checkout */ "./resources/js/checkout.js");
 
 /***/ }),
@@ -1901,8 +1903,8 @@ for (var i = 0; i < cartButton.length; i++) {
   var button = cartButton[i];
   button.addEventListener('click', function (event) {
     var checkoutId = event.target.value;
-    axios__WEBPACK_IMPORTED_MODULE_0___default().get('sanctum/csrf-cookie').then(function (response) {
-      axios__WEBPACK_IMPORTED_MODULE_0___default().post('api/checkout', {
+    axios__WEBPACK_IMPORTED_MODULE_0___default().get('/sanctum/csrf-cookie').then(function (response) {
+      axios__WEBPACK_IMPORTED_MODULE_0___default().post('/api/checkout', {
         id: checkoutId
       }).then(function (response) {
         if (response.data === 1) {
@@ -1915,6 +1917,81 @@ for (var i = 0; i < cartButton.length; i++) {
       return console.log(error);
     });
   });
+}
+
+/***/ }),
+
+/***/ "./resources/js/search.js":
+/*!********************************!*\
+  !*** ./resources/js/search.js ***!
+  \********************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
+
+var searchBox = document.getElementById('search-box');
+var inputBox = searchBox.querySelector('input');
+var suggestionBox = document.getElementById('suggest-box');
+var suggestion = [];
+var timeout = null;
+var searchValue = '';
+
+inputBox.onkeyup = function (e) {
+  clearTimeout(timeout);
+  timeout = setTimeout(function () {
+    searchValue = e.target.value;
+    var emptyArray = [];
+    axios__WEBPACK_IMPORTED_MODULE_0___default().get('/sanctum/csrf-cookie').then(function (response) {
+      axios__WEBPACK_IMPORTED_MODULE_0___default().get('/api/search', {
+        params: {
+          search: searchValue
+        }
+      }).then(function (response) {
+        if (response.data) {
+          suggestion = response.data[0];
+
+          if (searchValue) {
+            emptyArray = suggestion.filter(function (data) {
+              return data.name.toLocaleLowerCase().includes(searchValue.toLocaleLowerCase());
+            });
+            emptyArray = emptyArray.map(function (data) {
+              return data = "<li class=\"hover:bg-gray-200\" >".concat(data.name, "</li>");
+            });
+            suggestionBox.classList.remove('hidden');
+            showSuggestion(emptyArray);
+            var allList = suggestionBox.querySelectorAll("li");
+
+            for (var i = 0; i < allList.length; i++) {
+              allList[i].setAttribute("onclick", "selectSuggest(this)");
+            }
+          } else {
+            suggestionBox.classList.add('hidden');
+          }
+        } else {
+          suggestion = [];
+        }
+      })["catch"](function (error) {
+        return console.log(error);
+      });
+    })["catch"](function (error) {
+      return console.log(error);
+    });
+  }, 300);
+};
+
+function showSuggestion(list) {
+  var listData;
+
+  if (!list.length) {
+    listData = '';
+  } else {
+    listData = list.join('');
+  }
+
+  suggestionBox.innerHTML = listData;
 }
 
 /***/ }),

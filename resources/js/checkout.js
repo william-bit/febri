@@ -12,8 +12,8 @@ for (let i = 0; i < cartButton.length;i++){
   let button = cartButton[i];
   button.addEventListener('click',function(event) {
     let checkoutId =  event.target.value;
-    axios.get('sanctum/csrf-cookie').then(response => {
-      axios.post('api/checkout', {
+    axios.get('/sanctum/csrf-cookie').then(response => {
+      axios.post('/api/checkout', {
           id: checkoutId,
       }).then((response) => {
           if (response.data === 1) {

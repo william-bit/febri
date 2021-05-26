@@ -66,7 +66,25 @@
                                     @elseif (!empty($table['valueConvert'][$name]))
                                         <td class="p-2">{{ $table['valueConvert'][$name][array_search($datum->{$name},array_column($table['valueConvert'][$name],'id'))]['value'] }}</td>
                                     @else
-                                        <td class="p-2">{{ $datum->{$name} }}</td>
+                                        @if(!empty($table['json']))
+                                            @if(in_array($name,$table['json']))
+                                                <td class="p-2">
+                                                    <table class="w-full">
+                                                        @foreach (json_decode($datum->{$name},true) as $jsonKey => $jsonValue)
+                                                            <tr class="border-b-2">
+                                                                <td class="w-6"> {{ $jsonKey+1 }}. </td>
+                                                                <td class="w-2/3"> {{ $jsonValue['name'] }} </td>
+                                                                <td class="pl-2"> Rp.{{ number_format($jsonValue['price'] )}} </td>
+                                                            </tr>
+                                                        @endforeach
+                                                    </table>
+                                                </td>
+                                            @else
+                                                <td class="p-2">{{ $datum->{$name} }}</td>
+                                            @endif
+                                        @else
+                                            <td class="p-2">{{ $datum->{$name} }}</td>
+                                        @endif
                                     @endif
                                 @endforeach
                             </tr>

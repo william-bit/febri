@@ -17,6 +17,7 @@ class TransactionController extends Controller
             'action' => '',
             'edit' => 'product.update',
             'table' => [
+                'json' => ['product'],
                 'name' => 'Transaction list',
                 'data' => $transaction,
                 'order' => [

@@ -58,4 +58,7 @@
             </form>
         </div>
     </div>
+    <script>
+
+    </script>
 @endsection

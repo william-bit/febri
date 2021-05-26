@@ -33,4 +33,10 @@ class HomeController extends Controller
             'categories' => $categories
         ]);
     }
+    public function detail(Products $products)
+    {
+        return view('detail',[
+            'product' => $products,
+        ]);
+    }
 }

@@ -66,7 +66,7 @@ class ProductController extends Controller
                     ],
                     'category_id' => [
                         'type' => 'dropdown',
-                        'label' =>'Template',
+                        'label' =>'Category',
                         'value' => [
                             'selected' => null,
                             'selection' => Category::all(),

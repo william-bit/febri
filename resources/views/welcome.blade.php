@@ -81,9 +81,15 @@
                             <button value="{{ $product->id }}" class="w-full p-2 text-xl font-bold text-blue-900 transition border-b-2 border-l-2 border-r-2 active:delay-150 checkout-button focus:outline-none hover:bg-gray-100 active:bg-gray-300">
                                 Add To Cart
                             </button>
-                            <a href="{{ route('buy',$product->id) }}" class="w-full p-2 text-xl font-bold text-center text-blue-900 border-b-2 border-l-2 border-r-2 rounded-b-lg buynow-button focus:outline-none hover:bg-gray-100">
-                                Buy Now
-                            </a>
+                            @if(auth()->user())
+                                <a href="{{ route('buy',$product->id) }}" class="w-full p-2 text-xl font-bold text-center text-blue-900 border-b-2 border-l-2 border-r-2 rounded-b-lg buynow-button focus:outline-none hover:bg-gray-100">
+                                    Buy Now
+                                </a>
+                            @else
+                                <a href="{{ route('login') }}" class="w-full p-2 text-xl font-bold text-center text-blue-900 border-b-2 border-l-2 border-r-2 rounded-b-lg buynow-button focus:outline-none hover:bg-gray-100">
+                                    Buy Now
+                                </a>
+                            @endif
                         </div>
                     @endforeach
                 </div>

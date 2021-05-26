@@ -15,7 +15,7 @@ class CategoryController extends Controller
     {
         $categories = Category::latest()->paginate(100);
         return view('admin.categories.index',[
-            'title' => 'Product List',
+            'title' => 'Category List',
             'breadcrumb' => [
                 'Dashboard' => route('dashboard'),
             ],
@@ -38,8 +38,8 @@ class CategoryController extends Controller
                     'name' => [
                         'type' => 'text',
                         'value' => null,
-                        'label' =>'Product Name',
-                        'placeholder' =>'Product Name'
+                        'label' =>'Category Name',
+                        'placeholder' =>'Category Name'
                     ],
                 ]
             ]
