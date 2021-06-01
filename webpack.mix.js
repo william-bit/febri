@@ -12,6 +12,9 @@ const mix = require('laravel-mix');
  */
 
 mix.js('resources/js/app.js', 'public/js')
+    .copy('node_modules/lightbox2/dist/css/lightbox.css','public/css/lightbox.css')
+    .copy('node_modules/lightbox2/dist/js/lightbox-plus-jquery.js','public/js/lightbox.js')
+    .copy('node_modules/lightbox2/dist/images/','public/images/')
     .postCss('resources/css/app.css', 'public/css', [
         require('tailwindcss')
     ])

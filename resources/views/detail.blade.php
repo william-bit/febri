@@ -24,7 +24,7 @@
                         <span class="text-2xl font-bold text-blue-900">
                             Detail Barang
                         </span>
-                        <p class="mt-2 text-blue-800">
+                        <p style="white-space: pre-line" class="mt-2 text-blue-800">
                             {{$product->description}}
                         </p>
                     </div>

@@ -10,10 +10,12 @@
         <div class="flex flex-row items-center justify-center flex-1 w-screen p-4 overflow-auto bg-white shadow-lg">
             @foreach ($top as $product)
                 <div class="flex flex-col mx-2 shadow-lg">
-                    <a href="{{ route('home.detail',$product->id) }}" class="flex flex-col items-center flex-shrink-0 rounded-lg cursor-pointer hover:bg-gray-100">
-                        <div class="p-2 border-t-2 border-l-2 border-r-2 rounded-t-lg">
+                    <div class="p-2 border-t-2 border-l-2 border-r-2 rounded-t-lg">
+                        <a href="{{asset('storage/images/'.$product->photo)}}" data-lightbox="{{$product->name}}" data-title="{{$product->name}}">
                             <img class="w-56 h-56" src="{{ asset('storage/images/'.$product->photo) }}" alt="" title="">
-                        </div>
+                        </a>
+                    </div>
+                    <a href="{{ route('home.detail',$product->id) }}" class="flex flex-col items-center flex-shrink-0 rounded-lg cursor-pointer hover:bg-gray-100">
                         <div class="flex justify-center flex-1 w-full pt-2 text-xl font-bold text-blue-900 border-l-2 border-r-2">
                             <span> {{ $product->name }} </span>
                         </div>
@@ -24,9 +26,9 @@
                     <button value="{{ $product->id }}" class="w-full p-2 text-xl font-bold text-blue-900 transition border-b-2 border-l-2 border-r-2 rounded-b-lg active:delay-150 active:bg-gray-300 checkout-button focus:outline-none hover:bg-gray-100">
                         Add To Cart
                     </button>
-                    <a href="{{ route('buy',$product->id) }}" class="w-full p-2 text-xl font-bold text-center text-blue-900 border-b-2 border-l-2 border-r-2 rounded-b-lg buynow-button focus:outline-none hover:bg-gray-100">
+                    {{-- <a href="{{ route('buy',$product->id) }}" class="w-full p-2 text-xl font-bold text-center text-blue-900 border-b-2 border-l-2 border-r-2 rounded-b-lg buynow-button focus:outline-none hover:bg-gray-100">
                          Buy Now
-                    </a>
+                    </a> --}}
                 </div>
             @endforeach
         </div>
@@ -67,10 +69,12 @@
                 <div class="flex flex-wrap items-center flex-1">
                     @foreach ($products as $product)
                         <div class="flex flex-col m-2 rounded-lg shadow-lg">
-                            <a href="{{ route('home.detail',$product->id) }}" class="flex flex-col items-center flex-shrink-0 bg-white cursor-pointer hover:bg-gray-200">
-                                <div class="p-2 border-t-2 border-l-2 border-r-2 rounded-t-lg">
+                            <div class="p-2 border-t-2 border-l-2 border-r-2 rounded-t-lg">
+                                <a href="{{asset('storage/images/'.$product->photo)}}" data-lightbox="{{$product->name}}" data-title="{{$product->name}}">
                                     <img class="w-44 h-44" src="{{ asset('storage/images/'.$product->photo) }}" alt="" title="">
-                                </div>
+                                </a>
+                            </div>
+                            <a href="{{ route('home.detail',$product->id) }}" class="flex flex-col items-center flex-shrink-0 bg-white cursor-pointer hover:bg-gray-200">
                                 <div class="flex justify-center flex-1 w-full pt-2 text-xl font-bold text-blue-900 border-l-2 border-r-2">
                                     <span> {{ $product->name }} </span>
                                 </div>
@@ -82,13 +86,13 @@
                                 Add To Cart
                             </button>
                             @if(auth()->user())
-                                <a href="{{ route('buy',$product->id) }}" class="w-full p-2 text-xl font-bold text-center text-blue-900 border-b-2 border-l-2 border-r-2 rounded-b-lg buynow-button focus:outline-none hover:bg-gray-100">
+                                {{-- <a href="{{ route('buy',$product->id) }}" class="w-full p-2 text-xl font-bold text-center text-blue-900 border-b-2 border-l-2 border-r-2 rounded-b-lg buynow-button focus:outline-none hover:bg-gray-100">
                                     Buy Now
-                                </a>
+                                </a> --}}
                             @else
-                                <a href="{{ route('login') }}" class="w-full p-2 text-xl font-bold text-center text-blue-900 border-b-2 border-l-2 border-r-2 rounded-b-lg buynow-button focus:outline-none hover:bg-gray-100">
+                                {{-- <a href="{{ route('login') }}" class="w-full p-2 text-xl font-bold text-center text-blue-900 border-b-2 border-l-2 border-r-2 rounded-b-lg buynow-button focus:outline-none hover:bg-gray-100">
                                     Buy Now
-                                </a>
+                                </a> --}}
                             @endif
                         </div>
                     @endforeach

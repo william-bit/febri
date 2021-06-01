@@ -4,11 +4,12 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <link rel="stylesheet" href="{{asset('css/lightbox.css')}}">
     <title>Alvin Wijaya Web</title>
     <meta name="csrf-token" content="{{csrf_token()}}" />
 </head>
 <body class="flex flex-col bg-blue-100">
-    <div class="sticky top-0 flex flex-col flex-1">
+    <div class="sticky top-0 z-10 flex flex-col flex-1">
         <div class="flex items-center justify-between px-4 py-2 bg-blue-700">
             <div class="flex items-center space-x-6 font-bold text-blue-50">
                 <a href="{{route('home')}}" class="flex items-center text-3xl font-extrabold tracking-widest cursor-pointer hover:text-blue-200">
@@ -41,10 +42,7 @@
                             items in cart
                         </span>
                     </a>
-                    <form action="{{route('logout')}}" method="post">
-                        @csrf
-                        <button class="px-2 text-lg font-bold text-white rounded-lg cursor-pointer hover:text-red-400">Log Out</button>
-                    </form>
+                    <a href="{{ route('user')}}" class="px-2 text-lg font-bold text-white rounded-lg cursor-pointer hover:text-red-400">{{auth()->user()->name}}</a>
                 @else
                     <a href="{{ route('login')}}" class="flex px-3 py-2 space-x-2 text-white bg-green-500 rounded-md cursor-pointer hover:bg-green-600">
                         <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -73,5 +71,6 @@
         searchBox.querySelector('input').value = selectUserData;
     }
 </script>
+<script src="{{asset('js/lightbox.js')}}"></script>
 <script src="{{ asset('js/app.js')}}" async></script>
 </html>

@@ -13,10 +13,20 @@ class PaymentController extends Controller
         $this->validate($request,[
             'location' => 'required',
         ]);
-        $insert['product'] = Products::whereIn('id',$request->session()->pull('productCheckout'))->get()->toJson();
+        $products = Products::whereIn('id',$request->item['id'])->get()->toArray();
+        $total = 0;
+        foreach($products as &$product){
+            $product['quantity'] = $quantity = $request->item['quantity'][array_search($product['id'],$request->item['id'])];
+            $total += $product['price'] * $quantity;
+        }
+        unset($product);
+        $insert['product'] = json_encode($products);
         $insert['location'] = $request->location;
+        $insert['total'] = $total;
         $insert['user_id'] = auth()->user()->id;
+        $insert['status'] = 0;
         Transaction::create($insert);
+        $request->session()->forget('productCheckout');
         return redirect()->route('home');
     }
 }

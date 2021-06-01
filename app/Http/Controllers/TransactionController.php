@@ -7,6 +7,18 @@ use Illuminate\Http\Request;
 
 class TransactionController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->middleware(['auth']);
+    }
+    public function confirm(Request $request)
+    {
+        $transaction = Transaction::find($request->confirm);
+        $transaction->status = 1;
+        $transaction->save();
+        return redirect()->route('transaction');
+    }
     public function index()
     {
         $transaction = Transaction::latest()->paginate(100);
@@ -17,6 +29,7 @@ class TransactionController extends Controller
             'action' => '',
             'edit' => 'product.update',
             'table' => [
+                'confirm' => ['link' => route('transaction.confirm'),'status' => 0],
                 'json' => ['product'],
                 'name' => 'Transaction list',
                 'data' => $transaction,

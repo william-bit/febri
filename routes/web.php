@@ -50,6 +50,7 @@ Route::prefix('/but')->group(function(){
 Route::get('/admin',[DashboardController::class,'index'])->name('dashboard');
 Route::get('/admin/report',[ReportController::class,'index'])->name('report');
 Route::get('/admin/transaction',[TransactionController::class,'index'])->name('transaction');
+Route::post('/admin/transaction',[TransactionController::class,'confirm'])->name('transaction.confirm');
 
 Route::get('/admin/category',[CategoryController::class,'index'])->name('category');
 Route::prefix('/admin/category')->group(function(){
@@ -75,8 +76,3 @@ Route::prefix('/admin/product')->group(function(){
 
 
 Route::get('/user',[UserController::class,'index'])->name('user');
-Route::prefix('/user')->group(function(){
-    Route::post('/{id}',[UserController::class,'store']);
-    Route::put('/{id}',[UserController::class,'update']);
-    Route::delete('/{id}',[UserController::class,'destroy']);
-});
