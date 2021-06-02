@@ -29,7 +29,6 @@
             <div class="flex items-center space-x-2">
                 @if(auth()->user())
                     @if(auth()->user()->role_id === 1)
-                        <a href="{{route('dashboard')}}" class="text-lg font-bold text-gray-200 hover:text-gray-300">Go to Admin Panel</a>
                     @endif
                 @endif
                 @if(auth()->user())
@@ -45,6 +44,7 @@
                     <div class="dropdown">
                         <button class="w-10 h-10 text-xl font-bold text-center bg-white rounded-full dropdown-button hover:bg-gray-200"> {{Str::upper(substr(auth()->user()->name,0,1))}}</button>
                         <div class="absolute z-20 flex-col hidden w-48 p-2 mt-3 text-sm bg-white border rounded dropdown-list right-4">
+                            <a href="{{route('dashboard')}}" class="px-2 py-1 text-lg rounded hover:bg-blue-200">Go to Admin Panel</a>
                             <a class="px-2 py-1 text-lg rounded hover:bg-blue-200" href="{{route('purchase_list')}}">Daftar Pembelian</a>
                             <a class="px-2 py-1 text-lg rounded hover:bg-blue-200" href="{{ route('user')}}">Profile</a>
                             <form action="{{route('logout')}}" method="post" class="px-2 py-1 rounded hover:bg-blue-200">
