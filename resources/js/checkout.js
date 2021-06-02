@@ -19,8 +19,8 @@ let cartButtons = document.getElementsByClassName('checkout-button');
 for (let button of cartButtons){
   button.addEventListener('click',function(event) {
     let checkoutId =  event.target.value;
-    axios.get('/sanctum/csrf-cookie').then(response => {
-      axios.post('/api/checkout', {
+    axios.get(APP_URL+'/sanctum/csrf-cookie').then(response => {
+      axios.post(APP_URL+'/api/checkout', {
           id: checkoutId,
       }).then((responseApi) => {
           if (responseApi.data === 1) {
@@ -45,7 +45,6 @@ for(let button of removeCartButtons){
 let quantityInput = document.getElementsByClassName('cart-quantity-input');
 for(let input of quantityInput){
   input.addEventListener('change',(event) => {
-    let inputChange = event.target;
     if(isNaN(input.value) || input.value == 0){
       input.value = 1;
     }

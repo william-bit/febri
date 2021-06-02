@@ -20,8 +20,8 @@ class MemberController extends Controller
             'breadcrumb' => [
             ],
             'action' => '',
-            'delete' => 'member.destroy',
             'table' => [
+                'delete' => ['link' => 'member.destroy'],
                 'name' => 'member list',
                 'data' => $Member,
                 'order' => [

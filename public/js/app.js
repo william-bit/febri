@@ -1846,6 +1846,8 @@ __webpack_require__(/*! ./search */ "./resources/js/search.js");
 
 __webpack_require__(/*! ./checkout */ "./resources/js/checkout.js");
 
+__webpack_require__(/*! ./dropdown */ "./resources/js/dropdown.js");
+
 /***/ }),
 
 /***/ "./resources/js/bootstrap.js":
@@ -1922,8 +1924,8 @@ try {
     var button = _step.value;
     button.addEventListener('click', function (event) {
       var checkoutId = event.target.value;
-      axios__WEBPACK_IMPORTED_MODULE_0___default().get('/sanctum/csrf-cookie').then(function (response) {
-        axios__WEBPACK_IMPORTED_MODULE_0___default().post('/api/checkout', {
+      axios__WEBPACK_IMPORTED_MODULE_0___default().get(APP_URL + '/sanctum/csrf-cookie').then(function (response) {
+        axios__WEBPACK_IMPORTED_MODULE_0___default().post(APP_URL + '/api/checkout', {
           id: checkoutId
         }).then(function (responseApi) {
           if (responseApi.data === 1) {
@@ -1973,8 +1975,6 @@ try {
   var _loop = function _loop() {
     var input = _step3.value;
     input.addEventListener('change', function (event) {
-      var inputChange = event.target;
-
       if (isNaN(input.value) || input.value == 0) {
         input.value = 1;
       }
@@ -2020,6 +2020,51 @@ function updateCartTotal() {
 
 /***/ }),
 
+/***/ "./resources/js/dropdown.js":
+/*!**********************************!*\
+  !*** ./resources/js/dropdown.js ***!
+  \**********************************/
+/***/ (() => {
+
+function _createForOfIteratorHelper(o, allowArrayLike) { var it = typeof Symbol !== "undefined" && o[Symbol.iterator] || o["@@iterator"]; if (!it) { if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = it.call(o); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it["return"] != null) it["return"](); } finally { if (didErr) throw err; } } }; }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+var dropdowns = document.getElementsByClassName('dropdown');
+
+var _iterator = _createForOfIteratorHelper(dropdowns),
+    _step;
+
+try {
+  var _loop = function _loop() {
+    var dropdown = _step.value;
+    var dropdownBtn = dropdown.querySelector('.dropdown-button');
+    var dropdownList = dropdown.querySelector('.dropdown-list');
+    dropdownBtn.addEventListener('click', function (ev) {
+      dropdownList.classList.toggle('hidden');
+      dropdownList.classList.toggle('flex');
+    });
+    document.querySelector('body').addEventListener('click', function (event) {
+      if (event.target != dropdown && event.target != dropdownList && event.target != dropdownBtn) {
+        dropdownList.classList.remove('flex');
+        dropdownList.classList.add('hidden');
+      }
+    }, true);
+  };
+
+  for (_iterator.s(); !(_step = _iterator.n()).done;) {
+    _loop();
+  }
+} catch (err) {
+  _iterator.e(err);
+} finally {
+  _iterator.f();
+}
+
+/***/ }),
+
 /***/ "./resources/js/search.js":
 /*!********************************!*\
   !*** ./resources/js/search.js ***!
@@ -2030,6 +2075,12 @@ function updateCartTotal() {
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
+function _createForOfIteratorHelper(o, allowArrayLike) { var it = typeof Symbol !== "undefined" && o[Symbol.iterator] || o["@@iterator"]; if (!it) { if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = it.call(o); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it["return"] != null) it["return"](); } finally { if (didErr) throw err; } } }; }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
 
 var searchBox = document.getElementById('search-box');
 var inputBox = searchBox.querySelector('input');
@@ -2043,28 +2094,38 @@ inputBox.onkeyup = function (e) {
   timeout = setTimeout(function () {
     searchValue = e.target.value;
     var emptyArray = [];
-    axios__WEBPACK_IMPORTED_MODULE_0___default().get('/sanctum/csrf-cookie').then(function (response) {
-      axios__WEBPACK_IMPORTED_MODULE_0___default().get('/api/search', {
+    axios__WEBPACK_IMPORTED_MODULE_0___default().get(APP_URL + '/sanctum/csrf-cookie').then(function (response) {
+      axios__WEBPACK_IMPORTED_MODULE_0___default().get(APP_URL + '/api/search', {
         params: {
           search: searchValue
         }
-      }).then(function (response) {
-        if (response.data) {
-          suggestion = response.data[0];
+      }).then(function (responseApi) {
+        if (responseApi.data) {
+          suggestion = responseApi.data[0];
 
           if (searchValue) {
             emptyArray = suggestion.filter(function (data) {
               return data.name.toLocaleLowerCase().includes(searchValue.toLocaleLowerCase());
             });
             emptyArray = emptyArray.map(function (data) {
-              return data = "<li class=\"hover:bg-gray-200\" >".concat(data.name, "</li>");
+              return "<li class=\"hover:bg-gray-200\" >".concat(data.name, "</li>");
             });
             suggestionBox.classList.remove('hidden');
             showSuggestion(emptyArray);
-            var allList = suggestionBox.querySelectorAll("li");
+            var allLists = suggestionBox.querySelectorAll("li");
 
-            for (var i = 0; i < allList.length; i++) {
-              allList[i].setAttribute("onclick", "selectSuggest(this)");
+            var _iterator = _createForOfIteratorHelper(allLists),
+                _step;
+
+            try {
+              for (_iterator.s(); !(_step = _iterator.n()).done;) {
+                var allList = _step.value;
+                allList.setAttribute("onclick", "selectSuggest(this)");
+              }
+            } catch (err) {
+              _iterator.e(err);
+            } finally {
+              _iterator.f();
             }
           } else {
             suggestionBox.classList.add('hidden');

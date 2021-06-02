@@ -19,6 +19,7 @@ class CreateTransactionsTable extends Migration
             $table->text('location');
             $table->string('user_id');
             $table->integer('status');
+            $table->integer('total');
             $table->timestamps();
         });
     }

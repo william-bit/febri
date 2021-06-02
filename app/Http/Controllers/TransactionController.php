@@ -27,14 +27,15 @@ class TransactionController extends Controller
             'breadcrumb' => [
             ],
             'action' => '',
-            'edit' => 'product.update',
             'table' => [
                 'confirm' => ['link' => route('transaction.confirm'),'status' => 0],
                 'json' => ['product'],
+                'currency' => ['total'],
                 'name' => 'Transaction list',
                 'data' => $transaction,
                 'order' => [
                     'product' => 'list Product',
+                    'total' => 'Total Purchase',
                     'location' => 'location',
                     'created_at' => 'Created At',
                     'updated_at' => 'Updated At',

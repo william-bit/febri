@@ -8,6 +8,17 @@ use Illuminate\Http\Request;
 
 class HomeController extends Controller
 {
+    public function indexSearch(Request $request)
+    {
+        $products = Products::query()->where('name','LIKE',"%{$request->search}%")->get();
+        $categories = Category::get();
+        $top = Products::take(5)->latest()->get();
+        return view('welcome',[
+            'top' => $top,
+            'products' => $products,
+            'categories' => $categories
+        ]);
+    }
     public function index()
     {
         $products = Products::latest()->paginate(100);

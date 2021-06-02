@@ -20,9 +20,9 @@ class CategoryController extends Controller
                 'Dashboard' => route('dashboard'),
             ],
             'action' => 'category',
-            'delete' => 'category.destroy',
-            'edit' => 'category.update',
             'table' => [
+                'delete' => ['link' => 'category.destroy'],
+                'edit' => ['link' => 'category.edit'],
                 'name' => 'Category list',
                 'data' => $categories,
                 'order' => [
@@ -55,8 +55,59 @@ class CategoryController extends Controller
         ]);
         return redirect()->route('category');
     }
-    public function destroy(Request $request)
+    public function destroy(Category $category)
     {
-       dd();
+        $category->delete();
+        return redirect()->route('product');
+    }
+    public function edit(Category $category)
+    {
+        return view('admin.categories.edit',[
+            'title' => 'Category Edit',
+            'breadcrumb' => [
+                'Dashboard' => route('dashboard'),
+                'Category List' => route('category')
+            ],
+            'action' => route('category.update',$category->id),
+            'table' => [
+                'delete' => ['link' => 'category.destroy'],
+                'edit' => ['link' => 'category.edit'],
+                'name' => 'Category list',
+                'data' => $category,
+                'order' => [
+                    'name' => 'name',
+                    'created_at' => 'Created At',
+                    'updated_at' => 'Updated At',
+                ],
+            ],
+            'forms' => [
+                'name' => '',
+                'type' => 'add',
+                'data' => [
+                    'name' => [
+                        'type' => 'text',
+                        'value' => $category->name,
+                        'label' =>'Category Name',
+                        'placeholder' =>'Category Name'
+                    ],
+                ]
+            ]
+        ]);
+    }
+    public function update(Request $request,Category $category)
+    {
+        $updateChange = [];
+        foreach($request->toArray() as $key => $value){
+            if(!empty($value) && $key != '_token'){
+                $updateChange[$key] = $value;
+            }
+        }
+        foreach ($updateChange as $key => $value) {
+            if($category->{$key} != $value){
+                $category->{$key} = $value;
+            }
+        }
+        $category->save();
+        return redirect()->route('category.edit',$category->id);
     }
 }

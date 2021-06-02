@@ -11,6 +11,7 @@ use App\Http\Controllers\MemberController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\auth\RegisterController;
 use App\Http\Controllers\PaymentController;
+use App\Http\Controllers\PurchaseListController;
 use App\Http\Controllers\ReportController;
 use App\Http\Controllers\TransactionController;
 use App\Http\Controllers\UserController;
@@ -28,7 +29,7 @@ use Illuminate\Support\Facades\Route;
 */
 Route::get('/',[HomeController::class,'index'])->name('home');
 Route::post('/',[HomeController::class,'indexWithCategory'])->name('home.category');
-Route::get('/home',[HomeController::class,'index'])->name('home.selection');
+Route::get('/home',[HomeController::class,'indexSearch'])->name('home.selection');
 Route::get('/home/{products}',[HomeController::class,'detail'])->name('home.detail');
 
 Route::get('/auth/login',[LoginController::class,'index'])->name('login');
@@ -42,8 +43,10 @@ Route::prefix('/checkout')->group(function(){
     Route::post('/',[PaymentController::class,'store']);
 });
 
+Route::get('/purchase_list',[PurchaseListController::class,'index'])->name('purchase_list');
+
 Route::get('/buy/{product}',[BuyNowController::class,'index'])->name('buy')->middleware(['auth']);
-Route::prefix('/but')->group(function(){
+Route::prefix('/buy')->group(function(){
     Route::post('/{id}',[BuyNowController::class,'store']);
 });
 
@@ -55,8 +58,9 @@ Route::post('/admin/transaction',[TransactionController::class,'confirm'])->name
 Route::get('/admin/category',[CategoryController::class,'index'])->name('category');
 Route::prefix('/admin/category')->group(function(){
     Route::post('/',[CategoryController::class,'store']);
-    Route::put('/update/{id}',[CategoryController::class,'update'])->name('category.update');
-    Route::delete('/{id}',[CategoryController::class,'destroy'])->name('category.destroy');
+    Route::post('/update/{category}',[CategoryController::class,'update'])->name('category.update');
+    Route::get('/edit/{category}',[CategoryController::class,'edit'])->name('category.edit');
+    Route::delete('/{category}',[CategoryController::class,'destroy'])->name('category.destroy');
 });
 
 Route::get('/admin/member',[MemberController::class,'index'])->name('member');
@@ -70,7 +74,8 @@ Route::prefix('/admin/product')->group(function(){
     Route::get('/',[ProductController::class,'index'])->name('product');
     Route::post('/',[ProductController::class,'store']);
     Route::delete('/{product}',[ProductController::class,'destroy'])->name('product.destroy');
-    Route::put('/update/{product}',[ProductController::class,'update'])->name('product.update');
+    Route::post('/update/{product}',[ProductController::class,'update'])->name('product.update');
+    Route::get('/edit/{product}',[ProductController::class,'edit'])->name('product.edit');
     Route::get('/detail/{product}',[ProductController::class,'index'])->name('product.detail');
 });
 

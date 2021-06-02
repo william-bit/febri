@@ -13,26 +13,26 @@ inputBox.onkeyup = (e) =>{
     searchValue = e.target.value;
     let emptyArray = [];
 
-    axios.get('/sanctum/csrf-cookie').then(response => {
-      axios.get('/api/search',{
+    axios.get(APP_URL+'/sanctum/csrf-cookie').then(response => {
+      axios.get(APP_URL+'/api/search',{
         params: {
           search: searchValue
         }
-      }).then(response => {
-        if(response.data){
-          suggestion = response.data[0];
+      }).then(responseApi => {
+        if(responseApi.data){
+          suggestion = responseApi.data[0];
           if(searchValue){
             emptyArray = suggestion.filter((data)=>{
               return data.name.toLocaleLowerCase().includes(searchValue.toLocaleLowerCase());
             })
             emptyArray = emptyArray.map((data)=>{
-              return data = `<li class="hover:bg-gray-200" >${data.name}</li>`;
+              return `<li class="hover:bg-gray-200" >${data.name}</li>`;
             })
             suggestionBox.classList.remove('hidden');
             showSuggestion(emptyArray);
-            let allList = suggestionBox.querySelectorAll("li");
-            for(let i=0;i<allList.length;i++){
-              allList[i].setAttribute("onclick","selectSuggest(this)")
+            let allLists = suggestionBox.querySelectorAll("li");
+            for(let allList of allLists){
+              allList.setAttribute("onclick","selectSuggest(this)")
             }
           }else{
             suggestionBox.classList.add('hidden');

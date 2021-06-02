@@ -76,24 +76,47 @@
                                     @elseif (!empty($table['valueConvert'][$name]))
                                         <td class="p-2">{{ $table['valueConvert'][$name][array_search($datum->{$name},array_column($table['valueConvert'][$name],'id'))]['value'] }}</td>
                                     @else
+                                    @php
+                                        $custom = false;
+                                    @endphp
                                         @if(!empty($table['json']))
                                             @if(in_array($name,$table['json']))
+                                                @php
+                                                    $custom = true;
+                                                @endphp
                                                 <td class="p-2">
                                                     <table class="w-full">
+                                                        <tr class="bg-gray-100 border-b-2">
+                                                            <td class="w-6">No</td>
+                                                            <td class="w-2/3"> Nama </td>
+                                                            <td class="w-2/3"> Qty </td>
+                                                            <td class="pl-2"> Price</td>
+                                                            <td class="pl-2"> SubTotal </td>
+                                                        </tr>
                                                         @foreach (json_decode($datum->{$name},true) as $jsonKey => $jsonValue)
                                                             <tr class="border-b-2">
                                                                 <td class="w-6"> {{ $jsonKey+1 }}. </td>
                                                                 <td class="w-2/3"> {{ $jsonValue['name'] }} </td>
                                                                 <td class="w-2/3"> {{ (!empty($jsonValue['quantity']))?$jsonValue['quantity']:''}} </td>
                                                                 <td class="pl-2"> Rp.{{ number_format($jsonValue['price'] )}} </td>
+                                                                <td class="pl-2"> Rp.{{ number_format($jsonValue['price']*$jsonValue['quantity'] )}} </td>
                                                             </tr>
                                                         @endforeach
                                                     </table>
                                                 </td>
-                                            @else
-                                                <td class="p-2">{{ $datum->{$name} }}</td>
                                             @endif
-                                        @else
+                                        @endif
+
+                                        @if(!empty($table['currency']))
+                                            @if(in_array($name,$table['currency']))
+                                                @php
+                                                    $custom = true;
+                                                @endphp
+                                                <td class="p-2">RP.{{ number_format($datum->{$name})}}</td>
+                                            @endif
+                                        @endif
+
+                                        @if(!$custom)
                                             <td class="p-2">{{ $datum->{$name} }}</td>
                                         @endif
                                     @endif

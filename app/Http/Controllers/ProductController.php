@@ -21,9 +21,9 @@ class ProductController extends Controller
                 'Dashboard' => route('dashboard'),
             ],
             'action' => 'product',
-            'delete' => 'product.destroy',
-            'edit' => 'product.update',
             'table' => [
+                'delete' => ['link' => 'product.destroy'],
+                'edit' => ['link' => 'product.edit'],
                 'name' => 'product list',
                 'data' => $product,
                 'order' => [
@@ -110,5 +110,91 @@ class ProductController extends Controller
     {
         $product->delete();
         return redirect()->route('product');
+    }
+    public function edit(Products $product)
+    {
+        return view('admin.products.edit',[
+            'title' => 'Product Edit',
+            'breadcrumb' => [
+                'Dashboard' => route('dashboard'),
+                'Product List' => route('product')
+            ],
+            'action' => route('product.update',$product->id),
+            'table' => [
+                'name' => 'product list',
+                'data' => $product,
+                'order' => [
+                    'name' => 'name',
+                    'code' => 'code',
+                    'description' => 'description',
+                    'price' => 'Price',
+                    'category.name' => 'Category',
+                    'created_at' => 'Created At',
+                    'updated_at' => 'Updated At',
+                ],
+            ],
+            'forms' => [
+                'name' => '',
+                'type' => 'add',
+                'data' => [
+                    'name' => [
+                        'type' => 'text',
+                        'value' => $product->name,
+                        'label' =>'Product Name',
+                        'placeholder' =>'Product Name'
+                    ],
+                    'code' => [
+                        'type' => 'text',
+                        'value' => $product->code,
+                        'label' =>'Product Code',
+                        'placeholder' =>'Product Code'
+                    ],
+                    'description' => [
+                        'type' => 'textarea',
+                        'value' => $product->description,
+                        'label' =>'Product Description',
+                        'placeholder' =>'Product Description'
+                    ],
+                    'price' => [
+                        'type' => 'number',
+                        'value' => $product->price,
+                        'label' =>'Price',
+                        'placeholder' =>'Price'
+                    ],
+                    'category_id' => [
+                        'type' => 'dropdown',
+                        'label' =>'Category',
+                        'value' => [
+                            'selected' => $product->category_id,
+                            'selection' => Category::all(),
+                            'column' => 'name'
+                        ],
+                        'placeholder' =>'Select Category'
+                    ],
+                    'photo' => [
+                        'type' => 'file',
+                        'value' => $product->photo,
+                        'label' =>'Photo',
+                        'placeholder' =>'Photo'
+                    ],
+                ]
+            ]
+        ]);
+    }
+    public function update(Request $request,Products $product)
+    {
+        $updateChange = [];
+        foreach($request->toArray() as $key => $value){
+            if(!empty($value) && $key != '_token'){
+                $updateChange[$key] = $value;
+            }
+        }
+        foreach ($updateChange as $key => $value) {
+            if($product->{$key} != $value){
+                $product->{$key} = $value;
+            }
+        }
+        $product->save();
+        return redirect()->route('product.edit',$product->id);
     }
 }

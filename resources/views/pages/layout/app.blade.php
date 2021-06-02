@@ -42,7 +42,17 @@
                             items in cart
                         </span>
                     </a>
-                    <a href="{{ route('user')}}" class="px-2 text-lg font-bold text-white rounded-lg cursor-pointer hover:text-red-400">{{auth()->user()->name}}</a>
+                    <div class="dropdown">
+                        <button class="w-10 h-10 text-xl font-bold text-center bg-white rounded-full dropdown-button hover:bg-gray-200"> {{Str::upper(substr(auth()->user()->name,0,1))}}</button>
+                        <div class="absolute z-20 flex-col hidden w-48 p-2 mt-3 text-sm bg-white border rounded dropdown-list right-4">
+                            <a class="px-2 py-1 text-lg rounded hover:bg-blue-200" href="{{route('purchase_list')}}">Daftar Pembelian</a>
+                            <a class="px-2 py-1 text-lg rounded hover:bg-blue-200" href="{{ route('user')}}">Profile</a>
+                            <form action="{{route('logout')}}" method="post" class="px-2 py-1 rounded hover:bg-blue-200">
+                                @csrf
+                                <button class="w-full text-left">Log Out</button>
+                            </form>
+                        </div>
+                    </div>
                 @else
                     <a href="{{ route('login')}}" class="flex px-3 py-2 space-x-2 text-white bg-green-500 rounded-md cursor-pointer hover:bg-green-600">
                         <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -53,7 +63,7 @@
                             items in cart
                         </span>
                     </a>
-                    <a href={{ route('login') }} class="px-2 text-lg font-bold text-green-300 rounded-lg cursor-pointer hover:text-green-100">Sign In</a>
+                    <a href={{ route('login') }} class="px-2 text-lg font-bold text-white rounded-lg cursor-pointer hover:text-gray-100">Sign In</a>
                 @endif
             </div>
         </div>
@@ -64,6 +74,9 @@
         @yield('content')
     </div>
 </body>
+<script>
+    const APP_URL = '{!! URL::to('/') !!}';
+</script>
 <script>
     function selectSuggest(element){
         let selectUserData = element.textContent;
