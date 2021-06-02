@@ -189,10 +189,18 @@ class ProductController extends Controller
                 $updateChange[$key] = $value;
             }
         }
+        $photo = false;
         foreach ($updateChange as $key => $value) {
             if($product->{$key} != $value){
                 $product->{$key} = $value;
+                if($key == 'photo'){
+                    $photo = $request->file('photo')->getClientOriginalName();
+                    $product->{$key} = $photo;
+                }
             }
+        }
+        if(!empty($photo)){
+            $request->photo->move(public_path('storage/images'), $photo);
         }
         $product->save();
         return redirect()->route('product.edit',$product->id);
