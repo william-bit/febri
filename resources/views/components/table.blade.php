@@ -107,6 +107,19 @@
                                             @endif
                                         @endif
 
+                                        @if(!empty($table['photo']))
+                                            @if(in_array($name,$table['photo']))
+                                                @php
+                                                    $custom = true;
+                                                @endphp
+                                                <td class="p-2">
+                                                    <a href="{{asset('storage/images/'.$datum->{$name})}}" data-lightbox="{{($datum->{$name})}}" data-title="{{($datum->{$name})}}">
+                                                        <img class="w-24 h-24 rounded" src="{{ asset('storage/images/'.$datum->{$name}) }}" alt="" title="">
+                                                    </a>
+                                                </td>
+                                            @endif
+                                        @endif
+
                                         @if(!empty($table['currency']))
                                             @if(in_array($name,$table['currency']))
                                                 @php

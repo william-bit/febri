@@ -26,11 +26,13 @@ class ProductController extends Controller
                 'edit' => ['link' => 'product.edit'],
                 'name' => 'product list',
                 'data' => $product,
+                'photo' => ['photo'],
                 'order' => [
                     'name' => 'name',
                     'code' => 'code',
                     'description' => 'description',
                     'price' => 'Price',
+                    'photo' => 'Photo',
                     'category.name' => 'Category',
                     'created_at' => 'Created At',
                     'updated_at' => 'Updated At',
