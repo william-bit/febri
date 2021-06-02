@@ -27,6 +27,7 @@ class ProductController extends Controller
                 'name' => 'product list',
                 'data' => $product,
                 'photo' => ['photo'],
+                'currency' => ['price'],
                 'order' => [
                     'name' => 'name',
                     'code' => 'code',
