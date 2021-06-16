@@ -2,23 +2,20 @@
 
 namespace App\Http\Middleware;
 
+use App\Providers\RouteServiceProvider;
 use Closure;
+use Illuminate\Http\Request;
 
 class CheckUser
 {
-    /**
-     * Handle an incoming request.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \Closure  $next
-     * @return mixed
-     */
-    public function handle()
+    public function handle(Request $request, Closure $next, ...$guards)
     {
-        if (!auth()->user()->role_id == 1) {
-            return route('home');
-        }
+        $guards = empty($guards) ? [null] : $guards;
 
+        if (auth()->user()->role_id != 1) {
+            return redirect(RouteServiceProvider::HOME);
+        }
+        return $next($request);
     }
 }
 ?>
