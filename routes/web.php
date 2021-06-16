@@ -54,6 +54,8 @@ Route::get('/admin',[DashboardController::class,'index'])->name('dashboard');
 Route::get('/admin/report',[ReportController::class,'index'])->name('report');
 Route::get('/admin/transaction',[TransactionController::class,'index'])->name('transaction');
 Route::post('/admin/transaction',[TransactionController::class,'confirm'])->name('transaction.confirm');
+Route::get('/admin/print',[TransactionController::class,'exportPdf'])->name('transaction.exportPdf');
+Route::get('/admin/export',[TransactionController::class,'exportExcel'])->name('transaction.exportExcel');
 
 Route::get('/admin/category',[CategoryController::class,'index'])->name('category');
 Route::prefix('/admin/category')->group(function(){

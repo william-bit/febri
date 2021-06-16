@@ -2,22 +2,29 @@
 <div class="flex flex-1 mt-3 overflow-auto bg-white rounded shadow-lg">
     <div class="flex-1 p-8">
         <h3 class="text-2xl font-bold text-gray-800">{{ $table['name'] }}</h3>
+        @if(!empty($table['btn']))
+            <div class="flex mt-2 space-x-2">
+                @foreach ($table['btn'] as $btn => $value)
+                    <a href="{{$value['link']}}" target="_blank" class="rounded-lg font-bold px-2 py-1 text-white bg-{{$value['color']}}-500 hover:bg-{{$value['color']}}-600">{{$value['title']}}</a>
+                @endforeach
+            </div>
+        @endif
         <div class="overflow-auto rounded-md shadow-md">
             <table class="w-full mt-3 table-auto min-w-max">
-                <head>
+                <thead>
                     <tr class="text-left text-gray-800 bg-gray-200">
                         <th class="p-2">Action</th>
                         <th class="p-2">No</th>
                         @foreach ($table['order'] as $header)
                             <th class="p-2">{{ $header }}</th>
                         @endforeach
-                </head>
-                <body>
+                </thead>
+                <tbody>
                     @if($table['data']->count())
                         @foreach ($table['data'] as $datum)
                             <tr class="border-b border-gray-200">
                                 <td style="white-space: pre-line" class="flex">
-                                    <div class="flex items-center justify-center flex-1 p-2 space-x-0">
+                                    <div class="flex items-center justify-center flex-1 space-x-0">
                                         @if(!empty($table['delete']))
                                         <form action="{{ route($table['delete']['link'],$datum->id) }}" method="post" onsubmit="return confirm('Do you really want to delete this data?');" class="flex">
                                             @csrf
@@ -42,9 +49,9 @@
                                         @endif
                                         @if(!empty($table['confirm']))
                                             @if($datum->{'status'} == 0)
-                                            <form action="{{ $table['confirm']['link'] }}" method="post" class="text-center">
+                                            <form action="{{ $table['confirm']['link'] }}" method="post" class="flex text-center">
                                                 @csrf
-                                                <button type="submit" name="confirm" value="{{$datum->id}}" class="px-2 py-1 font-medium text-white bg-red-500 rounded-lg hover:bg-red-600">
+                                                <button type="submit" name="confirm" value="{{$datum->id}}" class="flex px-2 py-1 m-1 font-medium text-white bg-red-500 rounded-lg hover:bg-red-600">
                                                     <span>Confirm Payment</span>
                                                 </button>
                                             </form>
@@ -132,7 +139,7 @@
                                         @endif
 
                                         @if(!$custom)
-                                            <td class="p-2">{{ $datum->{$name} }}</td>
+                                            <td style="white-space: pre-line" class="p-2">{{ $datum->{$name} }}</td>
                                         @endif
                                     @endif
                                 @endforeach
@@ -143,7 +150,7 @@
                             <th colspan="{{count($table['order']) + 2}}">Row Empty</th>
                         </tr>
                     @endif
-                </body>
+                </tbody>
             </table>
         </div>
         {{ $table['data']->links() }}

@@ -31,4 +31,15 @@ class CheckoutController extends Controller
         }
         return 0;
     }
+    public function remove(Request $request)
+    {
+        if(in_array($request->id,$request->session()->get('productCheckout',[]))){
+            $session = $request->session()->get('productCheckout',[]);
+            $key = array_search($request->id,$session);
+            unset($session[$key]);
+            $request->session()->put('productCheckout', $session);
+            return 1;
+        }
+        return 0;
+    }
 }

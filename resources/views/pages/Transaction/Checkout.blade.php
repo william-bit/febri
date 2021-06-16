@@ -30,7 +30,7 @@
                         <span class="flex items-center w-1/3 mx-2 mt-2 space-x-2 text-xl text-blue-900 border-b-2 cart-quantity">
                             <input type="hidden" name="item[id][]" value="{{$product->id}}">
                             <input type="number" name="item[quantity][]" value="1" class="w-16 p-1 bg-white border-4 border-gray-200 rounded-lg cart-quantity-input">
-                            <button class="p-1.5 font-bold text-white bg-red-600 rounded-lg hover:bg-red-700 remove-button">Remove</button>
+                            <button value="{{$product->id}}" class="p-1.5 font-bold text-white bg-red-600 rounded-lg hover:bg-red-700 remove-button">Remove</button>
                         </span>
                     </div>
                 @endforeach

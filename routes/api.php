@@ -23,6 +23,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 Route::get('/search',[SearchController::class,'index']);
 
 Route::post('/checkout',[CheckoutController::class,'store']);
+Route::post('/checkout/remove',[CheckoutController::class,'remove']);
 
 Route::post('/tokens/create', function (Request $request) {
     $token = $request->user()->createToken($request->token_name);

@@ -14,6 +14,11 @@ function checkOutPlus(){
   })
 }
 
+function checkOutMinus(){
+  let checkOutBag = document.getElementById('checkOutBag').innerHTML;
+  document.getElementById('checkOutBag').innerHTML =Number(checkOutBag)-1;
+}
+
 let cartButtons = document.getElementsByClassName('checkout-button');
 
 for (let button of cartButtons){
@@ -37,9 +42,24 @@ let removeCartButtons = document.getElementsByClassName('remove-button');
 for(let button of removeCartButtons){
   button.addEventListener('click',(event) => {
     let buttonClicked = event.target;
+    removeUpstreamCheckout(buttonClicked.value);
     buttonClicked.parentElement.parentElement.remove();
     updateCartTotal();
   })
+}
+
+function removeUpstreamCheckout(id){
+    axios.get(APP_URL+'/sanctum/csrf-cookie').then(response => {
+        axios.post(APP_URL+'/api/checkout/remove', {
+            id: id,
+        }).then((responseApi) => {
+            if (responseApi.data === 1) {
+              checkOutMinus();
+            }
+        }).catch((error) => {
+            console.log(error);
+        });
+      }).catch(error => console.log(error));
 }
 
 let quantityInput = document.getElementsByClassName('cart-quantity-input');
