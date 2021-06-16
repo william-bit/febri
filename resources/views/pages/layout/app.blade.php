@@ -28,10 +28,6 @@
             </div>
             <div class="flex items-center space-x-2">
                 @if(auth()->user())
-                    @if(auth()->user()->role_id === 1)
-                    @endif
-                @endif
-                @if(auth()->user())
                     <a href="{{ route('checkout')}}" class="flex px-3 py-2 space-x-2 text-white bg-green-500 rounded-md cursor-pointer hover:bg-green-600">
                         <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
@@ -44,7 +40,11 @@
                     <div class="dropdown">
                         <button class="w-10 h-10 text-xl font-bold text-center bg-white rounded-full dropdown-button hover:bg-gray-200"> {{Str::upper(substr(auth()->user()->name,0,1))}}</button>
                         <div class="absolute z-20 flex-col hidden w-48 p-2 mt-3 text-sm bg-white border rounded dropdown-list right-4">
-                            <a href="{{route('dashboard')}}" class="px-2 py-1 text-lg rounded hover:bg-blue-200">Go to Admin Panel</a>
+                            @if(auth()->user())
+                                @if(auth()->user()->role_id === 1)
+                                    <a href="{{route('dashboard')}}" class="px-2 py-1 text-lg rounded hover:bg-blue-200">Go to Admin Panel</a>
+                                @endif
+                            @endif
                             <a class="px-2 py-1 text-lg rounded hover:bg-blue-200" href="{{route('purchase_list')}}">Daftar Pembelian</a>
                             <a class="px-2 py-1 text-lg rounded hover:bg-blue-200" href="{{ route('user')}}">Profile</a>
                             <form action="{{route('logout')}}" method="post" class="px-2 py-1 rounded hover:bg-blue-200">
