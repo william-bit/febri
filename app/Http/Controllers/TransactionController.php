@@ -36,11 +36,11 @@ class TransactionController extends Controller
                         'link' => route('transaction.exportPdf'),
                         'color' => 'red'
                     ],
-                    'excel' => [
-                        'title' => 'Export Report Transaksi',
-                        'link' => route('transaction.exportExcel'),
-                        'color' => 'blue'
-                    ],
+                    // 'excel' => [
+                    //     'title' => 'Export Report Transaksi',
+                    //     'link' => route('transaction.exportExcel'),
+                    //     'color' => 'blue'
+                    // ],
                 ],
                 'confirm' => ['link' => route('transaction.confirm'),'status' => 0],
                 'json' => ['product'],
