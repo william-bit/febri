@@ -2027,7 +2027,7 @@ function updateCartTotal() {
       var cartRow = _step4.value;
       var priceElement = cartRow.getElementsByClassName('cart-price')[0];
       var quantityElement = cartRow.getElementsByClassName('cart-quantity-input')[0];
-      var price = parseInt(priceElement.innerHTML.replace('Rp.', '').replace('.00', '').replace(',', ''));
+      var price = parseInt(priceElement.innerHTML.replaceAll('Rp.', '').replaceAll('.00', '').replaceAll(',', ''));
       var quantity = parseInt(quantityElement.value);
       totalPrice += price * quantity;
     }

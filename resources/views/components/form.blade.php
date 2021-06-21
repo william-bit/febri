@@ -2,7 +2,7 @@
 <div class="flex flex-1 overflow-auto bg-white rounded shadow-lg">
     <div class="w-2/3 p-8">
         <h3 class="text-2xl font-bold text-gray-800">{{ $forms['name'] }}</h3>
-        <form action="{{ $action }}" method="post" enctype="multipart/form-data" class="flex flex-col" >
+        <form action="{{ $action }}" method="{{empty($forms['method'])?'post':$forms['method']}}" enctype="multipart/form-data" class="flex flex-col" >
             @foreach ($forms['data'] as $name => ['type' => $type,'value'=> $value,'label' => $label,'placeholder' => $placeholder])
                 @switch($type)
                     @case('text')
@@ -10,6 +10,9 @@
                     @break
                     @case('number')
                         <x-form-number :value='$value' :label='$label' :placeholder='$placeholder' :name='$name'></x-form-number>
+                    @break
+                    @case('date')
+                        <x-form-date :value='$value' :label='$label' :placeholder='$placeholder' :name='$name'></x-form-date>
                     @break
                     @case('textarea')
                         <x-form-textarea :value='$value' :label='$label' :placeholder='$placeholder' :name='$name'></x-form-textarea>

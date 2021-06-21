@@ -6,6 +6,7 @@ use PDF;
 use App\Models\Transaction;
 use App\Service\ExportExcel;
 use Illuminate\Http\Request;
+use Route;
 
 class TransactionController extends Controller
 {
@@ -21,26 +22,39 @@ class TransactionController extends Controller
         $transaction->save();
         return redirect()->route('transaction');
     }
-    public function index()
+    public function index(Request $request)
     {
-        $transaction = Transaction::latest()->paginate(100);
+        if($request->from || $request->until){
+            $this->validate($request,[
+                'from' => 'required',
+                'until' => 'required',
+            ]);
+            $transaction = Transaction::where('created_at' ,'>',$request->from)
+            ->where('created_at','<',$request->until)
+            ->latest()->paginate(100);
+            $from =$request->from;
+            $until =$request->until;
+        }else{
+            $from ='';
+            $until ='';
+            $transaction = Transaction::latest()->paginate(100);
+        }
         return view('admin.transaction.index',[
             'title' => 'Transaction List',
             'breadcrumb' => [
             ],
-            'action' => '',
+            'action' => 'transaction',
+            'DataSearch' => [
+                'action' => 'transaction',
+                'submit' => 'search'
+            ],
             'table' => [
                 'btn' => [
                     'pdf' => [
                         'title' => 'Print Report Transaksi',
-                        'link' => route('transaction.exportPdf'),
+                        'link' => route('transaction.exportPdf',['from' => $from,'until' => $until]),
                         'color' => 'red'
                     ],
-                    // 'excel' => [
-                    //     'title' => 'Export Report Transaksi',
-                    //     'link' => route('transaction.exportExcel'),
-                    //     'color' => 'blue'
-                    // ],
                 ],
                 'confirm' => ['link' => route('transaction.confirm'),'status' => 0],
                 'json' => ['product'],
@@ -55,11 +69,40 @@ class TransactionController extends Controller
                     'updated_at' => 'Updated At',
                 ],
             ],
+            'forms' => [
+                'name' => '',
+                'type' => 'add',
+                'method' => 'get',
+                'data' => [
+                    'from' => [
+                        'type' => 'date',
+                        'value' => $from,
+                        'label' =>'Form',
+                        'placeholder' =>'Product Name'
+                    ],
+                    'until' => [
+                        'type' => 'date',
+                        'value' => $until,
+                        'label' =>'Until',
+                        'placeholder' =>'Product Code'
+                    ],
+                ]
+            ]
         ]);
     }
-    public function exportPdf()
+    public function exportPdf(Request $request)
     {
-        $transaction = Transaction::with('user')->latest()->paginate(100);
+        if($request->from || $request->until){
+            $this->validate($request,[
+                'from' => 'required',
+                'until' => 'required',
+            ]);
+            $transaction = Transaction::with('user')->where('created_at' ,'>',$request->from)
+            ->where('created_at','<',$request->until)
+            ->latest()->paginate(100);
+        }else{
+            $transaction = Transaction::with('user')->latest()->paginate(100);
+        }
         $pdf = PDF::loadView('admin.transaction.report',[
             'title' => 'Report Penjualan',
             'table' => [
