@@ -18,8 +18,10 @@ class CreateTransactionsTable extends Migration
             $table->text('product');
             $table->text('location');
             $table->string('user_id');
+            $table->string('photo');
             $table->integer('status');
             $table->integer('total');
+            $table->integer('transport');
             $table->timestamps();
         });
     }

@@ -1,6 +1,6 @@
 @extends('pages.layout.app')
 @section('content')
-<form action="{{route('checkout')}}" method="post" class="flex-1">
+<form action="{{route('checkout')}}" method="post" enctype="multipart/form-data"  class="flex-1">
     <div class="flex flex-col items-center justify-center flex-1 w-full mt-12">
         <div class="flex-col w-1/2 p-10 bg-white rounded-lg">
             <h1 class="mb-3 text-4xl font-bold text-center text-blue-800 uppercase opacity-80">Cart</h1>
@@ -61,6 +61,15 @@
                     <span class="mb-3 text-lg font-semibold text-center text-blue-800 uppercase opacity-80">
                         Cara Pembayaran
                     </span>
+                </div>
+                <p class="my-4 font-semibold text-blue-800">Mohon Transfer Ke Rekening BCA : 628135464</p>
+                <div class="border-b-4">
+                    <span class="mb-3 text-lg font-semibold text-center text-blue-800 uppercase opacity-80">
+                        Bukti Pembayaran
+                    </span>
+                </div>
+                <div class="mt-5">
+                    <x-form-file value='' label='Foto Bukti' placeholder='Bukti Pembayaran' name='photo'></x-form-file>
                 </div>
                 <div class="flex flex-col">
                     @if(auth()->user())

@@ -61,8 +61,11 @@ class TransactionController extends Controller
                 'currency' => ['total'],
                 'name' => 'Transaction list',
                 'data' => $transaction,
+                'photo' => ['photo'],
                 'order' => [
                     'product' => 'list Product',
+                    'photo' => 'Photo',
+                    'transport' => 'Transport',
                     'total' => 'Total Purchase',
                     'location' => 'location',
                     'created_at' => 'Created At',
@@ -111,7 +114,7 @@ class TransactionController extends Controller
                 'data' => $transaction,
                 'btn' => [
                     'pdf' => [
-                        'title' => 'Print Report Transaksi',
+                        'title' => 'Print Report Transaction',
                         'link' => route('transaction.exportPdf'),
                         'color' => 'red'
                     ],
@@ -121,10 +124,12 @@ class TransactionController extends Controller
                 'order' => [
                     'location' => 'location',
                     'user.name' => 'User',
+                    'photo' => 'Photo',
+                    'transport' => 'Transport',
                     'product' => 'list Product',
                     'total' => 'Total Purchase',
-                    'created_at' => 'Created At',
-                    'updated_at' => 'Updated At',
+                    'created_at' => 'Buy Date',
+                    'updated_at' => 'Last Update',
                 ]
             ]
         ]);
@@ -137,8 +142,8 @@ class TransactionController extends Controller
             'user.name' => 'User',
             'product' => 'list Product',
             'total' => 'Total Purchase',
-            'created_at' => 'Created At',
-            'updated_at' => 'Updated At',
+            'created_at' => 'Buy Date',
+            'updated_at' => 'Last Update',
         ];
         $data = Transaction::with('user')->latest()->paginate(100);
         $exportExcel = new ExportExcel($data,$header,'Transaction');

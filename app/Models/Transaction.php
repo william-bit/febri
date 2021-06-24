@@ -14,6 +14,8 @@ class Transaction extends Model
         'total',
         'status',
         'product',
+        'transport',
+        'photo',
     ];
     public function user()
     {

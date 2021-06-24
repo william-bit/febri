@@ -20,12 +20,16 @@ class PaymentController extends Controller
             $total += $product['price'] * $quantity;
         }
         unset($product);
+        $productPhoto = $request->file('photo')->getClientOriginalName();
         $insert['product'] = json_encode($products);
         $insert['location'] = $request->location;
-        $insert['total'] = $total;
+        $insert['transport'] = 5000;
+        $insert['photo'] = $productPhoto;
+        $insert['total'] = $total+5000;
         $insert['user_id'] = auth()->user()->id;
         $insert['status'] = 0;
         Transaction::create($insert);
+        $request->photo->move(public_path('storage/images'), $productPhoto);
         $request->session()->forget('productCheckout');
         return redirect()->route('home');
     }

@@ -14,21 +14,9 @@ namespace App\Models{
 /**
  * App\Models\BuyNow
  *
- * @property int $id
- * @property int $product_id
- * @property int $user_id
- * @property int $buy_id
- * @property \Illuminate\Support\Carbon|null $created_at
- * @property \Illuminate\Support\Carbon|null $updated_at
  * @method static \Illuminate\Database\Eloquent\Builder|BuyNow newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|BuyNow newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|BuyNow query()
- * @method static \Illuminate\Database\Eloquent\Builder|BuyNow whereBuyId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|BuyNow whereCreatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|BuyNow whereId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|BuyNow whereProductId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|BuyNow whereUpdatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|BuyNow whereUserId($value)
  */
 	class BuyNow extends \Eloquent {}
 }
@@ -56,23 +44,9 @@ namespace App\Models{
 /**
  * App\Models\Checkout
  *
- * @property int $id
- * @property int $product_id
- * @property int $user_id
- * @property int $status
- * @property int $checkout_id
- * @property \Illuminate\Support\Carbon|null $created_at
- * @property \Illuminate\Support\Carbon|null $updated_at
  * @method static \Illuminate\Database\Eloquent\Builder|Checkout newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Checkout newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Checkout query()
- * @method static \Illuminate\Database\Eloquent\Builder|Checkout whereCheckoutId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Checkout whereCreatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Checkout whereId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Checkout whereProductId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Checkout whereStatus($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Checkout whereUpdatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Checkout whereUserId($value)
  */
 	class Checkout extends \Eloquent {}
 }
@@ -126,8 +100,10 @@ namespace App\Models{
  * @property string $product
  * @property string $location
  * @property string $user_id
+ * @property string $photo
  * @property int $status
  * @property int $total
+ * @property int $transport
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property-read \App\Models\User $user
@@ -137,9 +113,11 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder|Transaction whereCreatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Transaction whereId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Transaction whereLocation($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Transaction wherePhoto($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Transaction whereProduct($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Transaction whereStatus($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Transaction whereTotal($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Transaction whereTransport($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Transaction whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Transaction whereUserId($value)
  */
