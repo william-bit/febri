@@ -31,6 +31,6 @@ class PaymentController extends Controller
         Transaction::create($insert);
         $request->photo->move(public_path('storage/images'), $productPhoto);
         $request->session()->forget('productCheckout');
-        return redirect()->route('home');
+        return redirect()->route('home',['fire' => 'success','msg' => 'Success Buy']);
     }
 }

@@ -1848,6 +1848,8 @@ __webpack_require__(/*! ./checkout */ "./resources/js/checkout.js");
 
 __webpack_require__(/*! ./dropdown */ "./resources/js/dropdown.js");
 
+__webpack_require__(/*! ./fire */ "./resources/js/fire.js");
+
 /***/ }),
 
 /***/ "./resources/js/bootstrap.js":
@@ -2084,6 +2086,52 @@ try {
 } finally {
   _iterator.f();
 }
+
+/***/ }),
+
+/***/ "./resources/js/fire.js":
+/*!******************************!*\
+  !*** ./resources/js/fire.js ***!
+  \******************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var sweetalert2__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! sweetalert2 */ "./node_modules/sweetalert2/dist/sweetalert2.all.js");
+/* harmony import */ var sweetalert2__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(sweetalert2__WEBPACK_IMPORTED_MODULE_0__);
+
+
+function fireSuccess(msg) {
+  sweetalert2__WEBPACK_IMPORTED_MODULE_0___default().fire({
+    title: 'Success',
+    text: msg,
+    icon: 'success',
+    confirmButtonText: 'Cool'
+  });
+}
+
+function fireError(msg) {
+  sweetalert2__WEBPACK_IMPORTED_MODULE_0___default().fire({
+    title: 'Error',
+    text: msg,
+    icon: 'Error',
+    confirmButtonText: 'Cool'
+  });
+}
+
+function startFire() {
+  var urlParams = new URLSearchParams(window.location.search);
+  var msg = urlParams.get('msg');
+  var type = urlParams.get('fire');
+
+  if (type == 'success') {
+    fireSuccess(msg);
+  } else if (type == 'error') {
+    fireError(msg);
+  }
+}
+
+startFire();
 
 /***/ }),
 

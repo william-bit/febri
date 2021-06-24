@@ -58,7 +58,7 @@ class TransactionController extends Controller
                 ],
                 'confirm' => ['link' => route('transaction.confirm'),'status' => 0],
                 'json' => ['product'],
-                'currency' => ['total'],
+                'currency' => ['total','transport'],
                 'name' => 'Transaction list',
                 'data' => $transaction,
                 'photo' => ['photo'],
