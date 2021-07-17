@@ -58,7 +58,7 @@ class CategoryController extends Controller
     public function destroy(Category $category)
     {
         $category->delete();
-        return redirect()->route('product');
+        return redirect()->route('category');
     }
     public function edit(Category $category)
     {
