@@ -13,7 +13,7 @@ class PurchaseListController extends Controller
     }
     public function index()
     {
-        $transaction = Transaction::latest()->paginate(100);
+        $transaction = Transaction::where('user_id',auth()->user()->id)->latest()->paginate(100);
         return view('pages.purchase_list.index',[
             'transactions' => $transaction
         ]);
