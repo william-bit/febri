@@ -45,7 +45,7 @@
                                     <a href="{{route('dashboard')}}" class="px-2 py-1 text-lg rounded hover:bg-blue-200">Go to Admin Panel</a>
                                 @endif
                             @endif
-                            <a class="px-2 py-1 text-lg rounded hover:bg-blue-200" href="{{route('purchase_list')}}">Daftar Pembelian</a>
+                            <a class="px-2 py-1 text-lg rounded hover:bg-blue-200" href="{{route('purchase_list')}}">Purchase list</a>
                             <a class="px-2 py-1 text-lg rounded hover:bg-blue-200" href="{{ route('user')}}">Profile</a>
                             <form action="{{route('logout')}}" method="post" class="px-2 py-1 rounded hover:bg-blue-200">
                                 @csrf

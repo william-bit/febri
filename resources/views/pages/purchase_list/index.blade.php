@@ -5,28 +5,28 @@
         <div class="flex-1 p-10">
             <div class="flex items-center p-2 mt-3 space-x-1 font-bold text-gray-500 bg-white rounded-md opacity-90">
                 <span>
-                    Daftar Pembelian
+                    Purchase list
                 </span>
             </div>
             <div class="flex flex-col flex-wrap flex-1 p-6 mt-3 bg-white rounded-md opacity-90">
                 @foreach ($transactions as $transaction)
                     <div class="flex flex-col flex-1 p-3 m-2 border-2 shadow-md">
                         <span class="text-2xl font-bold text-blue-900">
-                            List Pembelian
+                            Purchase list
                         </span>
                         <span class="text-xl font-bold text-blue-900 border-b rounded">
-                            Tanggal pembelian = {{ $transaction->updated_at }}
+                            purchase date = {{ $transaction->updated_at }}
                         </span>
                         <span class="text-xl font-bold text-blue-900 border-b rounded">
                             @switch($transaction->status)
                                 @case(0)
-                                    Status Pembayaran = (Verifikasi Pembayaran)
+                                    Payment progress = (Payment verification)
                                     @break
                                 @case(1)
-                                    Status Pembayaran = (Terbayar barang di antar)
+                                    Payment progress = (Terbayar barang di antar)
                                     @break
                                 @case(2)
-                                    Status Pembayaran = (Finish)
+                                    Payment progress = (Finish)
                                     @break
                                 @default
                             @endswitch

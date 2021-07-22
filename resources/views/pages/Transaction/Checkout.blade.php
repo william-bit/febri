@@ -45,10 +45,10 @@
         <div class="flex items-center justify-center flex-1 w-full mt-12">
             <div class="flex-col w-1/2 p-10 bg-white rounded-lg">
                 @csrf
-                <h1 class="mb-3 text-4xl font-bold text-center text-blue-800 uppercase opacity-80">Alamat Dan Cara Pembayaran</h1>
+                <h1 class="mb-3 text-4xl font-bold text-center text-blue-800 uppercase opacity-80">Payment method and shipping address</h1>
                 <div class="border-b-4">
                     <span class="mb-3 text-lg font-semibold text-center text-blue-800 uppercase opacity-80">
-                        Alamat (+ RP.5,000,00 for transport fee)
+                        Shipping address (+ RP.5,000,00 for transport fee)
                     </span>
                 </div>
                 @error('location')
@@ -59,17 +59,17 @@
                 <input type="text" name="location" class="w-full p-2 mb-5 border-b-2 rounded outline-none hover:border-blue-200 focus:border-blue-200">
                 <div class="border-b-4">
                     <span class="mb-3 text-lg font-semibold text-center text-blue-800 uppercase opacity-80">
-                        Cara Pembayaran
+                        Payment Method
                     </span>
                 </div>
-                <p class="my-4 font-semibold text-blue-800">Mohon Transfer Ke Rekening BCA : 628135464</p>
+                <p class="my-4 font-semibold text-blue-800">Transfer to this BCA Account : 628135464</p>
                 <div class="border-b-4">
                     <span class="mb-3 text-lg font-semibold text-center text-blue-800 uppercase opacity-80">
-                        Bukti Pembayaran
+                        Proof Of payment
                     </span>
                 </div>
                 <div class="mt-5">
-                    <x-form-file value='' label='Foto Bukti' placeholder='Bukti Pembayaran' name='photo'></x-form-file>
+                    <x-form-file value='' label='Picture Proof' placeholder='Bukti Pembayaran' name='photo'></x-form-file>
                 </div>
                 <div class="flex flex-col">
                     @if(auth()->user())

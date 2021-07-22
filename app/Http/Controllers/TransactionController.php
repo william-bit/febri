@@ -51,7 +51,7 @@ class TransactionController extends Controller
             'table' => [
                 'btn' => [
                     'pdf' => [
-                        'title' => 'Print Report Transaksi',
+                        'title' => 'Print Report Transaction',
                         'link' => route('transaction.exportPdf',['from' => $from,'until' => $until]),
                         'color' => 'red'
                     ],
