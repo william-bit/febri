@@ -97,7 +97,7 @@
                                                     <table class="w-full">
                                                         <tr class="bg-gray-100 border-b-2">
                                                             <td class="w-6">No</td>
-                                                            <td class="w-2/3"> Nama </td>
+                                                            <td class="w-2/3"> Name </td>
                                                             <td class="w-2/3"> Qty </td>
                                                             <td class="pl-2"> Price</td>
                                                             <td class="pl-2"> SubTotal </td>
