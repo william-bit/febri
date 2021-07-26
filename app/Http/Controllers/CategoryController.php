@@ -59,10 +59,10 @@ class CategoryController extends Controller
     public function destroy(Category $category)
     {
         if(Products::where('category_id',$category->id)->first()){
-            return redirect()->route('category',['fire' => 'error','msg' => 'Failed Delate Data,Data still used']);
+            return redirect()->route('category',['fire' => 'error','msg' => 'Failed Delete Data,Data still used']);
         }else{
             $category->delete();
-            return redirect()->route('category',['fire' => 'success','msg' => 'Delate Success']);
+            return redirect()->route('category',['fire' => 'success','msg' => 'Delete Success']);
         }
     }
     public function edit(Category $category)
