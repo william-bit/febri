@@ -23,7 +23,7 @@
                                     Payment progress = (Payment verification)
                                     @break
                                 @case(1)
-                                    Payment progress = (Terbayar barang di antar)
+                                    Payment progress = (Product on destination to customer)
                                     @break
                                 @case(2)
                                     Payment progress = (Finish)
