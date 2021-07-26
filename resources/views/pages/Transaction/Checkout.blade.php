@@ -73,7 +73,7 @@
                 </div>
                 <div class="flex flex-col">
                     @if(auth()->user())
-                        <button class="px-3 py-2 mt-12 font-bold text-white bg-green-700 border-2 focus:outline-none rounded-xl hover:bg-green-800">Bayar</button>
+                        <button class="px-3 py-2 mt-12 font-bold text-white bg-green-700 border-2 focus:outline-none rounded-xl hover:bg-green-800">Pay</button>
                     @else
                         <a href="{{route('login')}}" class="px-3 py-2 mt-12 font-bold text-center text-white bg-green-700 border-2 focus:outline-none rounded-xl hover:bg-green-800">Bayar</a>
                     @endif

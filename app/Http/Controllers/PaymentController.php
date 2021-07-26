@@ -12,6 +12,7 @@ class PaymentController extends Controller
     {
         $this->validate($request,[
             'location' => 'required',
+            'photo' => 'required',
         ]);
         $products = Products::whereIn('id',$request->item['id'])->get()->toArray();
         $total = 0;
