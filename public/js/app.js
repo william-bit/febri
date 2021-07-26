@@ -2101,20 +2101,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var sweetalert2__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(sweetalert2__WEBPACK_IMPORTED_MODULE_0__);
 
 
-function fireSuccess(msg) {
+function fire(msg, type, title) {
   sweetalert2__WEBPACK_IMPORTED_MODULE_0___default().fire({
-    title: 'Success',
+    title: title,
     text: msg,
-    icon: 'success',
-    confirmButtonText: 'Cool'
-  });
-}
-
-function fireError(msg) {
-  sweetalert2__WEBPACK_IMPORTED_MODULE_0___default().fire({
-    title: 'Error',
-    text: msg,
-    icon: 'Error',
+    icon: type,
     confirmButtonText: 'Cool'
   });
 }
@@ -2123,11 +2114,11 @@ function startFire() {
   var urlParams = new URLSearchParams(window.location.search);
   var msg = urlParams.get('msg');
   var type = urlParams.get('fire');
+  var title = urlParams.get('title') ? urlParams.get('title') : type;
+  var fires = ["success", "error", "warning"];
 
-  if (type == 'success') {
-    fireSuccess(msg);
-  } else if (type == 'error') {
-    fireError(msg);
+  if (fires.includes(type)) {
+    fire(msg, type, title);
   }
 }
 
@@ -2153,66 +2144,69 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
 
 
 var searchBox = document.getElementById('search-box');
-var inputBox = searchBox.querySelector('input');
-var suggestionBox = document.getElementById('suggest-box');
-var suggestion = [];
-var timeout = null;
-var searchValue = '';
 
-inputBox.onkeyup = function (e) {
-  clearTimeout(timeout);
-  timeout = setTimeout(function () {
-    searchValue = e.target.value;
-    var emptyArray = [];
-    axios__WEBPACK_IMPORTED_MODULE_0___default().get(APP_URL + '/sanctum/csrf-cookie').then(function (response) {
-      axios__WEBPACK_IMPORTED_MODULE_0___default().get(APP_URL + '/api/search', {
-        params: {
-          search: searchValue
-        }
-      }).then(function (responseApi) {
-        if (responseApi.data) {
-          suggestion = responseApi.data[0];
+if (searchBox) {
+  var inputBox = searchBox.querySelector('input');
+  var suggestionBox = document.getElementById('suggest-box');
+  var suggestion = [];
+  var timeout = null;
+  var searchValue = '';
 
-          if (searchValue) {
-            emptyArray = suggestion.filter(function (data) {
-              return data.name.toLocaleLowerCase().includes(searchValue.toLocaleLowerCase());
-            });
-            emptyArray = emptyArray.map(function (data) {
-              return "<li class=\"hover:bg-gray-200\" >".concat(data.name, "</li>");
-            });
-            suggestionBox.classList.remove('hidden');
-            showSuggestion(emptyArray);
-            var allLists = suggestionBox.querySelectorAll("li");
+  inputBox.onkeyup = function (e) {
+    clearTimeout(timeout);
+    timeout = setTimeout(function () {
+      searchValue = e.target.value;
+      var emptyArray = [];
+      axios__WEBPACK_IMPORTED_MODULE_0___default().get(APP_URL + '/sanctum/csrf-cookie').then(function (response) {
+        axios__WEBPACK_IMPORTED_MODULE_0___default().get(APP_URL + '/api/search', {
+          params: {
+            search: searchValue
+          }
+        }).then(function (responseApi) {
+          if (responseApi.data) {
+            suggestion = responseApi.data[0];
 
-            var _iterator = _createForOfIteratorHelper(allLists),
-                _step;
+            if (searchValue) {
+              emptyArray = suggestion.filter(function (data) {
+                return data.name.toLocaleLowerCase().includes(searchValue.toLocaleLowerCase());
+              });
+              emptyArray = emptyArray.map(function (data) {
+                return "<li class=\"hover:bg-gray-200\" >".concat(data.name, "</li>");
+              });
+              suggestionBox.classList.remove('hidden');
+              showSuggestion(emptyArray, suggestionBox);
+              var allLists = suggestionBox.querySelectorAll("li");
 
-            try {
-              for (_iterator.s(); !(_step = _iterator.n()).done;) {
-                var allList = _step.value;
-                allList.setAttribute("onclick", "selectSuggest(this)");
+              var _iterator = _createForOfIteratorHelper(allLists),
+                  _step;
+
+              try {
+                for (_iterator.s(); !(_step = _iterator.n()).done;) {
+                  var allList = _step.value;
+                  allList.setAttribute("onclick", "selectSuggest(this)");
+                }
+              } catch (err) {
+                _iterator.e(err);
+              } finally {
+                _iterator.f();
               }
-            } catch (err) {
-              _iterator.e(err);
-            } finally {
-              _iterator.f();
+            } else {
+              suggestionBox.classList.add('hidden');
             }
           } else {
-            suggestionBox.classList.add('hidden');
+            suggestion = [];
           }
-        } else {
-          suggestion = [];
-        }
+        })["catch"](function (error) {
+          return console.log(error);
+        });
       })["catch"](function (error) {
         return console.log(error);
       });
-    })["catch"](function (error) {
-      return console.log(error);
-    });
-  }, 300);
-};
+    }, 300);
+  };
+}
 
-function showSuggestion(list) {
+function showSuggestion(list, suggestionBox) {
   var listData;
 
   if (!list.length) {

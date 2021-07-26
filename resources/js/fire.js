@@ -1,17 +1,9 @@
 import Swal from 'sweetalert2';
-function fireSuccess(msg){
+function fire(msg,type,title){
     Swal.fire({
-        title: 'Success',
+        title: title,
         text: msg,
-        icon: 'success',
-        confirmButtonText: 'Cool'
-      })
-}
-function fireError(msg){
-    Swal.fire({
-        title: 'Error',
-        text: msg,
-        icon: 'Error',
+        icon: type,
         confirmButtonText: 'Cool'
       })
 }
@@ -20,10 +12,10 @@ function startFire() {
     const urlParams = new URLSearchParams(window.location.search);
     const msg = urlParams.get('msg');
     const type = urlParams.get('fire');
-    if(type == 'success'){
-        fireSuccess(msg);
-    }else if (type == 'error'){
-        fireError(msg);
+    const title = (urlParams.get('title'))?urlParams.get('title'):type;
+    const fires = ["success", "error", "warning"];
+    if(fires.includes(type)){
+        fire(msg,type,title);
     }
 }
 

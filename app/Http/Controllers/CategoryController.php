@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Category;
+use App\Models\Products;
 use Illuminate\Http\Request;
 
 class CategoryController extends Controller
@@ -57,8 +58,12 @@ class CategoryController extends Controller
     }
     public function destroy(Category $category)
     {
-        $category->delete();
-        return redirect()->route('category');
+        if(Products::where('category_id',$category->id)){
+            return redirect()->route('category',['fire' => 'error','msg' => 'Data masih di pakai di product']);
+        }else{
+            $category->delete();
+            return redirect()->route('category');
+        }
     }
     public function edit(Category $category)
     {
