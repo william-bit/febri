@@ -57,6 +57,22 @@ class TransactionController extends Controller
                 'submit' => 'search'
             ],
             'table' => [
+                'valueConvert' => [
+                    'status' => [
+                        [
+                            'id' => 0,
+                            'value' => 'Pending'
+                        ],
+                        [
+                            'id' => 1,
+                            'value' => 'Keterima'
+                        ],
+                        [
+                            'id' => 4,
+                            'value' => 'Reject'
+                        ]
+                    ]
+                ],
                 'confirm' => [
                     'confirm_payment' =>[
                         'name' => 'Confirm Payment',
@@ -91,6 +107,7 @@ class TransactionController extends Controller
                     'transport' => 'Transport',
                     'total' => 'Total Purchase',
                     'location' => 'location',
+                    'status' => 'status',
                     'created_at' => 'Created At',
                     'updated_at' => 'Updated At',
                 ],
