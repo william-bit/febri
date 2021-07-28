@@ -1,6 +1,6 @@
 @props(['table'])
 <div class="flex flex-1 mt-3 overflow-auto bg-white rounded shadow-lg">
-    <div class="flex-1 p-8">
+    <div class="flex-1 p-8 w-96">
         <h3 class="text-2xl font-bold text-gray-800">{{ $table['name'] }}</h3>
         @if(!empty($table['btn']))
             <div class="flex mt-2 space-x-2">
@@ -88,7 +88,12 @@
                                             <td class="p-2">{{ $datum->{$relationship}->{$column} }}</td>
                                         @endif
                                     @elseif (!empty($table['valueConvert'][$name]))
-                                        <td class="p-2">{{ $table['valueConvert'][$name][array_search($datum->{$name},array_column($table['valueConvert'][$name],'id'))]['value'] }}</td>
+                                        @php
+                                            $indexConvert = array_search($datum->{$name},array_column($table['valueConvert'][$name],'id'));
+                                            $valueConvert = $table['valueConvert'][$name][$indexConvert]['value'];
+                                            $color = $table['valueConvert'][$name][$indexConvert]['color'];
+                                        @endphp
+                                        <td class="p-2 "><span class="px-2 py-1 font-bold text-white bg-{{$color}}-500 rounded-lg">{{ $valueConvert }}</span></td>
                                     @else
                                     @php
                                         $custom = false;

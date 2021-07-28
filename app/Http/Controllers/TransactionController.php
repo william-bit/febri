@@ -61,14 +61,17 @@ class TransactionController extends Controller
                     'status' => [
                         [
                             'id' => 0,
+                            'color' => 'yellow',
                             'value' => 'Pending'
                         ],
                         [
                             'id' => 1,
+                            'color' => 'blue',
                             'value' => 'Confirm'
                         ],
                         [
                             'id' => 4,
+                            'color' => 'red',
                             'value' => 'Reject'
                         ]
                     ]
@@ -149,7 +152,22 @@ class TransactionController extends Controller
         $pdf = PDF::loadView('admin.transaction.report',[
             'title' => 'Report Penjualan',
             'table' => [
-                'confirm' => ['link' => route('transaction.confirm'),'status' => 0],
+                'valueConvert' => [
+                    'status' => [
+                        [
+                            'id' => 0,
+                            'value' => 'Pending'
+                        ],
+                        [
+                            'id' => 1,
+                            'value' => 'Confirm'
+                        ],
+                        [
+                            'id' => 4,
+                            'value' => 'Reject'
+                        ]
+                    ]
+                ],
                 'name' => 'Transaction list',
                 'data' => $transaction,
                 'btn' => [
@@ -164,10 +182,10 @@ class TransactionController extends Controller
                 'order' => [
                     'location' => 'location',
                     'user.name' => 'User',
-                    'photo' => 'Photo',
                     'transport' => 'Transport',
                     'product' => 'list Product',
                     'total' => 'Total Purchase',
+                    'status' => 'Status',
                     'created_at' => 'Buy Date',
                     'updated_at' => 'Last Update',
                 ]
