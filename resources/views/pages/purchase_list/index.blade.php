@@ -25,6 +25,9 @@
                                 @case(1)
                                     Payment progress = (Product on destination to customer)
                                     @break
+                                @case(4)
+                                    Payment progress = (Rejected)
+                                    @break
                                 @case(2)
                                     Payment progress = (Finish)
                                     @break

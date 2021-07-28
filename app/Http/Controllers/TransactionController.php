@@ -17,8 +17,16 @@ class TransactionController extends Controller
     }
     public function confirm(Request $request)
     {
-        $transaction = Transaction::find($request->confirm);
-        $transaction->status = 1;
+        $transaction = Transaction::find($request->value);
+        switch($request->type) {
+            case 'confirm':
+                $transaction->status = 1;
+                break;
+            case 'reject':
+                $transaction->status = 4;
+                break;
+
+        }
         $transaction->save();
         return redirect()->route('transaction');
     }
@@ -49,6 +57,22 @@ class TransactionController extends Controller
                 'submit' => 'search'
             ],
             'table' => [
+                'confirm' => [
+                    'confirm_payment' =>[
+                        'name' => 'Confirm Payment',
+                        'color' => 'blue',
+                        'value' => 'confirm',
+                        'status' => [0],
+                        'link' => route('transaction.confirm'),
+                    ],
+                    'reject_transaction' =>[
+                        'name' => 'Reject Payment',
+                        'color' => 'red',
+                        'value' => 'reject',
+                        'status' => [0],
+                        'link' => route('transaction.confirm'),
+                    ],
+                ],
                 'btn' => [
                     'pdf' => [
                         'title' => 'Print Report Transaction',
@@ -56,7 +80,6 @@ class TransactionController extends Controller
                         'color' => 'red'
                     ],
                 ],
-                'confirm' => ['link' => route('transaction.confirm'),'status' => 0],
                 'json' => ['product'],
                 'currency' => ['total','transport'],
                 'name' => 'Transaction list',

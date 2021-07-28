@@ -48,14 +48,19 @@
                                             </a>
                                         @endif
                                         @if(!empty($table['confirm']))
-                                            @if($datum->{'status'} == 0)
-                                            <form action="{{ $table['confirm']['link'] }}" method="post" class="flex text-center">
-                                                @csrf
-                                                <button type="submit" name="confirm" value="{{$datum->id}}" class="flex px-2 py-1 m-1 font-medium text-white bg-red-500 rounded-lg hover:bg-red-600">
-                                                    <span>Confirm Payment</span>
-                                                </button>
-                                            </form>
-                                            @endif
+                                            <div class="flex flex-col">
+                                                @foreach($table['confirm'] as $confirmName => $confirm)
+                                                    @if(in_array($datum->status,$confirm['status']))
+                                                        <form action="{{ $confirm['link'] }}" method="post" class="flex text-center">
+                                                            @csrf
+                                                            <input type="hidden" value="{{$confirm['value']}}" name="type">
+                                                            <button type="submit" name="value" value="{{$datum->id}}" class="flex justify-center w-full px-2 py-1 m-1 font-medium text-white rounded-lg bg-{{$confirm['color']}}-500 hover:bg-{{$confirm['color']}}-600">
+                                                                <span>{{$confirm['name']}}</span>
+                                                            </button>
+                                                        </form>
+                                                    @endif
+                                                @endforeach
+                                            </div>
                                         @endif
                                         @if(!empty($table['detail']))
                                             <a href="{{ route($table['detail']['link'],$datum->id) }}">
