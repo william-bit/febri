@@ -65,7 +65,7 @@ class TransactionController extends Controller
                         ],
                         [
                             'id' => 1,
-                            'value' => 'Keterima'
+                            'value' => 'Confirm'
                         ],
                         [
                             'id' => 4,
@@ -102,12 +102,12 @@ class TransactionController extends Controller
                 'data' => $transaction,
                 'photo' => ['photo'],
                 'order' => [
-                    'product' => 'list Product',
+                    'product' => 'List Product',
                     'photo' => 'Photo',
                     'transport' => 'Transport',
                     'total' => 'Total Purchase',
-                    'location' => 'location',
-                    'status' => 'status',
+                    'location' => 'Location',
+                    'status' => 'Status',
                     'created_at' => 'Created At',
                     'updated_at' => 'Updated At',
                 ],
