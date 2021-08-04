@@ -32,7 +32,7 @@
         </style>
     </head>
     <body>
-        <h1>Report Penjualan</h1>
+        <h1>Report Transaction</h1>
         <table class="w-full table-style">
             <thead>
                 <tr>
@@ -74,7 +74,7 @@
                                                 <table border="1" class="w-full border-collapse border-black border-solid border-1">
                                                     <tr class="">
                                                         <td class="w-6">No</td>
-                                                        <td class="td-s max-s"> Nama </td>
+                                                        <td class="td-s max-s"> Name </td>
                                                         <td class="w-2/3"> Qty </td>
                                                         <td class="pl-2"> Price</td>
                                                         <td class="pl-2"> SubTotal </td>
