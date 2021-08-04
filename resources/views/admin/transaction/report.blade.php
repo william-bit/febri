@@ -3,33 +3,40 @@
     <head>
         <title>{{$title}}</title>
         <style>
-            h1 {
-
+            .table-style {
+                font-family: Arial, Helvetica, sans-serif;
+                border-collapse: collapse;
+                width: 100%;
             }
+
             .w-full {
                 width: 100%;
             }
-            .border {
-                border-width: 1px;
+            .td-s {
+                word-wrap: break-word;
             }
-            .border-solid {
-                border-style: solid;
+            .table-style td, .table-style th {
+                border: 1px solid #ddd;
             }
-            .border-black {
-                border-color: black;
-            }
-            .border-collapse {
-                border-collapse: collapse;
-            }
+
+            .table-style tr:nth-child(even){background-color: #f2f2f2;}
+
+            .table-style tr:hover {background-color: #ddd;}
+
+            .table-style th {
+                padding: 5px;
+                text-align: left;
+                background-color: #044caa;
+                color: white;
             }
         </style>
     </head>
     <body>
         <h1>Report Penjualan</h1>
-        <table border="1" class="w-full border-collapse border-black border-solid border-1">
+        <table class="w-full table-style">
             <thead>
                 <tr>
-                    <th class="p-2">No</th>
+                    <th>No</th>
                     @foreach ($table['order'] as $name => $header)
                         <th class="border">{{$header}}</th>
                     @endforeach
@@ -39,21 +46,21 @@
                 @if($table['data']->count())
                     @foreach ($table['data'] as $datum)
                         <tr class="border-b border-gray-200">
-                            <td class="p-2">{{ (isset($no))?$no+=1:($no = 1 + $table['data']->perpage() * ($table['data']->currentpage() - 1)) }}</td>
+                            <td class="td-w">{{ (isset($no))?$no+=1:($no = 1 + $table['data']->perpage() * ($table['data']->currentpage() - 1)) }}</td>
                             @foreach ($table['order'] as $name => $header)
                                 @if (strpos($name, '.') !== false)
                                     @php [$relationship,$column] = explode('.',$name); @endphp
                                     @if (isset($table['concat']))
                                         @if (in_array($table['concat'],$name))
-                                            <td class="p-2">{{ implode(',',array_column($datum->{$relationship}->toArray(),$column)) }}</td>
+                                            <td class="td-s">{{ implode(',',array_column($datum->{$relationship}->toArray(),$column)) }}</td>
                                         @else
-                                            <td class="p-2">{{ $datum->{$relationship}->{$column} }}</td>
+                                            <td class="td-s">{{ $datum->{$relationship}->{$column} }}</td>
                                         @endif
                                     @else
-                                        <td class="p-2">{{ $datum->{$relationship}->{$column} }}</td>
+                                        <td class="td-s">{{ $datum->{$relationship}->{$column} }}</td>
                                     @endif
                                 @elseif (!empty($table['valueConvert'][$name]))
-                                    <td class="p-2">{{ $table['valueConvert'][$name][array_search($datum->{$name},array_column($table['valueConvert'][$name],'id'))]['value'] }}</td>
+                                    <td class="td-s">{{ $table['valueConvert'][$name][array_search($datum->{$name},array_column($table['valueConvert'][$name],'id'))]['value'] }}</td>
                                 @else
                                 @php
                                     $custom = false;
@@ -65,17 +72,17 @@
                                             @endphp
                                             <td class="p-2">
                                                 <table border="1" class="w-full border-collapse border-black border-solid border-1">
-                                                    <tr class="bg-gray-100 border-b-2">
+                                                    <tr class="">
                                                         <td class="w-6">No</td>
-                                                        <td class="w-2/3"> Nama </td>
+                                                        <td class="td-s max-s"> Nama </td>
                                                         <td class="w-2/3"> Qty </td>
                                                         <td class="pl-2"> Price</td>
                                                         <td class="pl-2"> SubTotal </td>
                                                     </tr>
                                                     @foreach (json_decode($datum->{$name},true) as $jsonKey => $jsonValue)
-                                                        <tr class="border-b-2">
+                                                        <tr class="">
                                                             <td class="w-6"> {{ $jsonKey+1 }}. </td>
-                                                            <td class="w-2/3"> {{ $jsonValue['name'] }} </td>
+                                                            <td class="td-s max-s"> {{ $jsonValue['name'] }} </td>
                                                             <td class="w-2/3"> {{ (!empty($jsonValue['quantity']))?$jsonValue['quantity']:''}} </td>
                                                             <td class="pl-2"> Rp.{{ number_format($jsonValue['price'] )}} </td>
                                                             <td class="pl-2"> Rp.{{ number_format($jsonValue['price']*$jsonValue['quantity'] )}} </td>
@@ -110,7 +117,7 @@
                                     @endif
 
                                     @if(!$custom)
-                                        <td style="white-space: pre-line" class="p-2">{{ $datum->{$name} }}</td>
+                                        <td style="white-space: pre-line" class="td-s">{{ $datum->{$name} }}</td>
                                     @endif
                                 @endif
                             @endforeach

@@ -180,17 +180,15 @@ class TransactionController extends Controller
                 'json' => ['product'],
                 'currency' => ['total'],
                 'order' => [
-                    'location' => 'location',
                     'user.name' => 'User',
-                    'transport' => 'Transport',
                     'product' => 'list Product',
+                    'transport' => 'Transport',
                     'total' => 'Total Purchase',
                     'status' => 'Status',
                     'created_at' => 'Buy Date',
-                    'updated_at' => 'Last Update',
                 ]
             ]
-        ]);
+        ])->setPaper('a3');
         return $pdf->stream('transaction.pdf');
     }
     public function exportExcel()
