@@ -22,6 +22,9 @@ class TransactionController extends Controller
             case 'confirm':
                 $transaction->status = 1;
                 break;
+            case 'arrive':
+                $transaction->status = 2;
+                break;
             case 'reject':
                 $transaction->status = 4;
                 break;
@@ -65,6 +68,11 @@ class TransactionController extends Controller
                             'value' => 'Pending'
                         ],
                         [
+                            'id' => 2,
+                            'color' => 'green',
+                            'value' => 'Arrive'
+                        ],
+                        [
                             'id' => 1,
                             'color' => 'blue',
                             'value' => 'Confirm'
@@ -77,6 +85,13 @@ class TransactionController extends Controller
                     ]
                 ],
                 'confirm' => [
+                    'confirm_arrive' =>[
+                        'name' => 'Confirm Arrive',
+                        'color' => 'green',
+                        'value' => 'arrive',
+                        'status' => [1],
+                        'link' => route('transaction.confirm'),
+                    ],
                     'confirm_payment' =>[
                         'name' => 'Confirm Payment',
                         'color' => 'blue',
@@ -96,6 +111,16 @@ class TransactionController extends Controller
                     'pdf' => [
                         'title' => 'Print Report Transaction',
                         'link' => route('transaction.exportPdf',['from' => $from,'until' => $until]),
+                        'color' => 'red'
+                    ],
+                    'pdf2' => [
+                        'title' => 'Print Report Transaksi Summary',
+                        'link' => route('transaction.exportPdfSummary',['from' => $from,'until' => $until]),
+                        'color' => 'red'
+                    ],
+                    'pdf3' => [
+                        'title' => 'Print Report Transaksi Rekap',
+                        'link' => route('transaction.exportPdfRekap',['from' => $from,'until' => $until]),
                         'color' => 'red'
                     ],
                 ],
@@ -136,6 +161,127 @@ class TransactionController extends Controller
             ]
         ]);
     }
+    public function exportPdfRekap(Request $request)
+    {
+        $transaction = Transaction::selectRaw('year(created_at) year, monthname(created_at) month,status, count(*) data,sum(total) total');
+        if($request->from || $request->until){
+            $this->validate($request,[
+                'from' => 'required',
+                'until' => 'required',
+            ]);
+            $transaction->where('created_at' ,'>',$request->from)
+            ->where('created_at','<',$request->until);
+        }
+        $transaction = $transaction->orderBy('status')
+        ->orderBy('year')
+        ->orderBy('month')
+        ->groupBy('status')
+        ->groupBy('year')
+        ->groupBy('month')
+        ->paginate(100);
+
+        $pdf = PDF::loadView('admin.transaction.report',[
+            'title' => 'Report Penjualan',
+            'table' => [
+                'valueConvert' => [
+                    'status' => [
+                        [
+                            'id' => 0,
+                            'value' => 'Pending'
+                        ],
+                        [
+                            'id' => 2,
+                            'value' => 'Arrive'
+                        ],
+                        [
+                            'id' => 1,
+                            'value' => 'Confirm'
+                        ],
+                        [
+                            'id' => 4,
+                            'value' => 'Reject'
+                        ]
+                    ]
+                ],
+                'name' => 'Transaction list',
+                'data' => $transaction,
+                'btn' => [
+                    'pdf' => [
+                        'title' => 'Print Report Transaction',
+                        'link' => route('transaction.exportPdf'),
+                        'color' => 'red'
+                    ],
+                ],
+                'json' => ['product'],
+                'currency' => ['total'],
+                'order' => [
+                    'month' => 'Bulan',
+                    'year' => 'Tahun',
+                    'data' => 'Jumlah Transaksi',
+                    'total' => 'Total Purchase',
+                    'status' => 'status Pembayaran',
+                ]
+            ]
+        ])->setPaper('a3');
+        return $pdf->stream('transaction.pdf');
+    }
+    public function exportPdfSummary(Request $request)
+    {
+        $transaction = Transaction::with('user')->where('status','!=','0');
+        if($request->from || $request->until){
+            $this->validate($request,[
+                'from' => 'required',
+                'until' => 'required',
+            ]);
+            $transaction = $transaction->where('created_at' ,'>',$request->from)
+            ->where('created_at','<',$request->until);
+        }
+        $transaction = $transaction->latest()->paginate(100);
+        $pdf = PDF::loadView('admin.transaction.report',[
+            'title' => 'Report Penjualan',
+            'table' => [
+                'valueConvert' => [
+                    'status' => [
+                        [
+                            'id' => 0,
+                            'value' => 'Pending'
+                        ],
+                        [
+                            'id' => 2,
+                            'value' => 'Arrive'
+                        ],
+                        [
+                            'id' => 1,
+                            'value' => 'Confirm'
+                        ],
+                        [
+                            'id' => 4,
+                            'value' => 'Reject'
+                        ]
+                    ]
+                ],
+                'name' => 'Transaction list',
+                'data' => $transaction,
+                'btn' => [
+                    'pdf' => [
+                        'title' => 'Print Report Transaction',
+                        'link' => route('transaction.exportPdf'),
+                        'color' => 'red'
+                    ],
+                ],
+                'json' => ['product'],
+                'currency' => ['total','transport'],
+                'order' => [
+                    'user.name' => 'User',
+                    'transport' => 'Transport',
+                    'total' => 'Total Purchase',
+                    'status' => 'Status',
+                    'created_at' => 'Buy Date',
+                ]
+            ]
+        ])->setPaper('a3');
+        return $pdf->stream('transaction.pdf');
+    }
     public function exportPdf(Request $request)
     {
         if($request->from || $request->until){
@@ -159,6 +305,10 @@ class TransactionController extends Controller
                             'value' => 'Pending'
                         ],
                         [
+                            'id' => 2,
+                            'value' => 'Arrive'
+                        ],
+                        [
                             'id' => 1,
                             'value' => 'Confirm'
                         ],
@@ -178,7 +328,7 @@ class TransactionController extends Controller
                     ],
                 ],
                 'json' => ['product'],
-                'currency' => ['total'],
+                'currency' => ['total','transport'],
                 'order' => [
                     'user.name' => 'User',
                     'product' => 'list Product',
