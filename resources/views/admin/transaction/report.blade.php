@@ -76,6 +76,7 @@
         <div>
             <img class="inline-block h-24" src="{{ asset('storage/asset/logo.jpg') }}" alt="" tie="">
             <div class="inline-block float-right">
+                <div>{{asset('storage/asset/logo.jpg') }}</div>
                 <div><b>PT. ORIENTAL UNTUK INDONESIA</b></div>
                 <div>Jalan Raya Curug Wetan, Kp. Tegal RT 002/RW 05</div>
                 <div>Kec. Curug, Kel. Curug Wetan, Kab. Tangerang</div>
