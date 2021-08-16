@@ -180,9 +180,18 @@ class TransactionController extends Controller
         ->groupBy('month')
         ->paginate(100);
 
+        $transArray = $transaction->toArray();
+        $sum = array_sum(array_column($transArray['data'],'total'));
+
+        $count = array_sum(array_column($transArray['data'],'data'));
+
         $pdf = PDF::loadView('admin.transaction.report',[
             'title' => 'Report Penjualan',
             'table' => [
+                'total' => [
+                    'total' => 'Rp.'.number_format($sum),
+                    'data' => $count,
+                ],
                 'valueConvert' => [
                     'status' => [
                         [
@@ -237,6 +246,8 @@ class TransactionController extends Controller
             ->where('created_at','<',$request->until);
         }
         $transaction = $transaction->latest()->paginate(100);
+        $sum = $transaction->toArray();
+        $sum = array_sum(array_column($sum['data'],'total'));
         $pdf = PDF::loadView('admin.transaction.report',[
             'title' => 'Report Penjualan',
             'table' => [
@@ -259,6 +270,9 @@ class TransactionController extends Controller
                             'value' => 'Reject'
                         ]
                     ]
+                ],
+                'total' => [
+                    'total' => 'Rp.'.number_format($sum),
                 ],
                 'name' => 'Transaction list',
                 'data' => $transaction,
@@ -295,6 +309,8 @@ class TransactionController extends Controller
         }else{
             $transaction = Transaction::with('user')->latest()->paginate(100);
         }
+        $sum = $transaction->toArray();
+        $sum = array_sum(array_column($sum['data'],'total'));
         $pdf = PDF::loadView('admin.transaction.report',[
             'title' => 'Report Penjualan',
             'table' => [
@@ -329,6 +345,9 @@ class TransactionController extends Controller
                 ],
                 'json' => ['product'],
                 'currency' => ['total','transport'],
+                'total' => [
+                    'total' => 'Rp.'.number_format($sum),
+                ],
                 'order' => [
                     'user.name' => 'User',
                     'product' => 'list Product',

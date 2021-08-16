@@ -184,6 +184,22 @@
                             <th colspan="{{count($table['order']) + 2}}">Row Empty</th>
                         </tr>
                     @endif
+
+                    {{-- total --}}
+                    @if (!empty($table['total']))
+                        <tr>
+                            <td>Total</td>
+                            @foreach ($table['order'] as $key => $head)
+                                @php
+                                    $value = '';
+                                    if(!empty($table['total'][$key])){
+                                        $value = $table['total'][$key];
+                                    }
+                                @endphp
+                                <td>{{$value}}</td>
+                            @endforeach
+                        </tr>
+                    @endif
                 </tbody>
             </table>
             <div class="relative">
