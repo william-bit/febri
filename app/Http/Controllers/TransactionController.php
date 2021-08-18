@@ -247,6 +247,9 @@ class TransactionController extends Controller
         }
         $transaction = $transaction->latest()->paginate(100);
         $sum = $transaction->toArray();
+        $sum['data'] =  array_filter($sum['data'],function ($var) {
+            return ($var['status'] != '4');
+        });
         $sum = array_sum(array_column($sum['data'],'total'));
         $pdf = PDF::loadView('admin.transaction.report',[
             'title' => 'Report Penjualan',
