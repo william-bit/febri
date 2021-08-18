@@ -181,6 +181,12 @@ class TransactionController extends Controller
         ->paginate(100);
 
         $transArray = $transaction->toArray();
+
+
+        $transArray['data'] =  array_filter($transArray['data'],function ($var) {
+            return ($var['status'] != '4');
+        });
+
         $sum = array_sum(array_column($transArray['data'],'total'));
 
         $count = array_sum(array_column($transArray['data'],'data'));
