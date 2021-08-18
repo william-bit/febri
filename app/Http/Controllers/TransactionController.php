@@ -186,7 +186,7 @@ class TransactionController extends Controller
         $count = array_sum(array_column($transArray['data'],'data'));
 
         $pdf = PDF::loadView('admin.transaction.report',[
-            'title' => 'Report Penjualan',
+            'title' => 'Report Transaction Rekap',
             'table' => [
                 'total' => [
                     'total' => 'Rp.'.number_format($sum),
@@ -252,7 +252,7 @@ class TransactionController extends Controller
         });
         $sum = array_sum(array_column($sum['data'],'total'));
         $pdf = PDF::loadView('admin.transaction.report',[
-            'title' => 'Report Penjualan',
+            'title' => 'Report Transaction Summary',
             'table' => [
                 'valueConvert' => [
                     'status' => [
@@ -318,7 +318,7 @@ class TransactionController extends Controller
         });
         $sum = array_sum(array_column($sum['data'],'total'));
         $pdf = PDF::loadView('admin.transaction.report',[
-            'title' => 'Report Penjualan',
+            'title' => 'Report Transaction',
             'table' => [
                 'valueConvert' => [
                     'status' => [

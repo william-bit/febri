@@ -88,7 +88,7 @@
             <div class="block mt-8 border-8 border-black w-border"> </div>
         </div>
         <div style="margin-top: 10px">
-            <h1>Report Transaction</h1>
+            <h1>{{$title}}</h1>
             <table class="w-full table-style">
                 <thead>
                     <tr>
