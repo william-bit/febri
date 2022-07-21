@@ -104,16 +104,7 @@
 </head>
 
 <body>
-    <div>
-        <img class="inline-block h-24" src="{{ asset('storage/asset/logo.jpg') }}" alt="" tie="">
-        <div class="inline-block float-right">
-            <div><b>PT. Febri UNTUK INDONESIA</b></div>
-            <div>Jalan Raya Curug Wetan, Kp. Tegal RT 002/RW 05</div>
-            <div>Kec. Curug, Kel. Curug Wetan, Kab. Tangerang</div>
-            <div>Telp : 081212269327</div>
-            <a style="color: blue;" class="underline">febri@gmail.com</a>
-        </div>
-    </div>
+
     <div style="margin-top: 10px">
         <div class="block mt-1 border border-black w-border"> </div>
         <div class="block mt-8 border-8 border-black w-border"> </div>

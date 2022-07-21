@@ -107,23 +107,7 @@ class TransactionController extends Controller
                         'link' => route('transaction.confirm'),
                     ],
                 ],
-                'btn' => [
-                    'pdf' => [
-                        'title' => 'Print Report Transaction',
-                        'link' => route('transaction.exportPdf',['from' => $from,'until' => $until]),
-                        'color' => 'red'
-                    ],
-                    'pdf2' => [
-                        'title' => 'Print Report Transaksi Summary',
-                        'link' => route('transaction.exportPdfSummary',['from' => $from,'until' => $until]),
-                        'color' => 'red'
-                    ],
-                    'pdf3' => [
-                        'title' => 'Print Report Transaksi Rekap',
-                        'link' => route('transaction.exportPdfRekap',['from' => $from,'until' => $until]),
-                        'color' => 'red'
-                    ],
-                ],
+
                 'json' => ['product'],
                 'currency' => ['total','transport'],
                 'name' => 'Transaction list',
@@ -218,15 +202,7 @@ class TransactionController extends Controller
                         ]
                     ]
                 ],
-                'name' => 'Transaction list',
-                'data' => $transaction,
-                'btn' => [
-                    'pdf' => [
-                        'title' => 'Print Report Transaction',
-                        'link' => route('transaction.exportPdf'),
-                        'color' => 'red'
-                    ],
-                ],
+
                 'json' => ['product'],
                 'currency' => ['total'],
                 'order' => [
@@ -283,15 +259,7 @@ class TransactionController extends Controller
                 'total' => [
                     'total' => 'Rp.'.number_format($sum),
                 ],
-                'name' => 'Transaction list',
-                'data' => $transaction,
-                'btn' => [
-                    'pdf' => [
-                        'title' => 'Print Report Transaction',
-                        'link' => route('transaction.exportPdf'),
-                        'color' => 'red'
-                    ],
-                ],
+
                 'json' => ['product'],
                 'currency' => ['total','transport'],
                 'order' => [
@@ -346,15 +314,7 @@ class TransactionController extends Controller
                         ]
                     ]
                 ],
-                'name' => 'Transaction list',
-                'data' => $transaction,
-                'btn' => [
-                    'pdf' => [
-                        'title' => 'Print Report Transaction',
-                        'link' => route('transaction.exportPdf'),
-                        'color' => 'red'
-                    ],
-                ],
+
                 'json' => ['product'],
                 'currency' => ['total','transport'],
                 'total' => [

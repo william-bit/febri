@@ -6,7 +6,7 @@
         </div>
         <div class="flex justify-center flex-1 overflow-auto bg-white rounded shadow-lg">
             <div class="p-8">
-                Wellcome To Admin Setting
+                Welcome To Admin Dashboard
             </div>
         </div>
     </div>

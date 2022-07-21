@@ -14,8 +14,8 @@
     <div class="flex h-screen bg-gray-100">
         <div class="w-64 px-4 bg-white border-r-2">
             <div class="sticky top-0 px-4 py-3">
-                <a href="{{ route('dashboard') }}" class="mb-3 text-2xl font-bold text-gray-800 uppercase">Admin Febri
-                    Kp</a>
+                <a href="{{ route('dashboard') }}" class="mb-3 text-xl font-bold text-gray-800 uppercase">Halaman Admin
+                    </a>
                 <nav class="flex flex-col mt-8 space-y-3">
                     <a href="{{ route('dashboard') }}"
                         class="w-full p-2 rounded-lg font-semibold {{ request()->is('admin') ? 'bg-gray-200 rounded-lg shadow-sm' : 'hover:bg-gray-200' }}">Dashboard</a>
