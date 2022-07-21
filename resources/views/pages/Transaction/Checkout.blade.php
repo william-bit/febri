@@ -65,12 +65,6 @@
                         class="w-full p-2 mb-5 border-b-2 rounded outline-none hover:border-blue-200 focus:border-blue-200">
                     <div class="border-b-4">
                         <span class="mb-3 text-lg font-semibold text-center text-blue-800 uppercase opacity-80">
-                            Payment Method
-                        </span>
-                    </div>
-                    <p class="my-4 font-semibold text-blue-800">Transfer to this BCA Account : 628135464</p>
-                    <div class="border-b-4">
-                        <span class="mb-3 text-lg font-semibold text-center text-blue-800 uppercase opacity-80">
                             Proof Of payment
                         </span>
                     </div>
