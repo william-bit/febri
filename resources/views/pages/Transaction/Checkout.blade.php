@@ -55,13 +55,7 @@
             <div class="flex items-center justify-center flex-1 w-full mt-12">
                 <div class="flex-col w-1/2 p-10 bg-white rounded-lg">
                     @csrf
-                    <h1 class="mb-3 text-4xl font-bold text-center text-blue-800 uppercase opacity-80">Payment method and
-                        shipping address</h1>
-                    <div class="border-b-4">
-                        <span class="mb-3 text-lg font-semibold text-center text-blue-800 uppercase opacity-80">
-                            Shipping address (+ RP.5,000,00 for transport fee)
-                        </span>
-                    </div>
+                    <h1 class="mb-3 text-4xl font-bold text-center text-blue-800 uppercase opacity-80">Payment method</h1>
                     @error('location')
                         <div class="text-sm text-red-500">
                             {{ $message }}
